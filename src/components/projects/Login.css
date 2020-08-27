@@ -1,0 +1,233 @@
+   .login-content {
+       font-family: 'Open Sans', sans-serif;
+       height: 700px;
+       background: #00000014;
+       position: relative;
+       overflow-y: hidden;
+   }
+   
+   .register-info-box a:hover {
+       text-decoration: none !important;
+       color: #3786bd !important;
+   }
+   
+   .white-panel a {
+       color: #3786bd !important;
+       cursor: pointer;
+   }
+   
+   .white-panel a:hover {
+       text-decoration: underline !important;
+   }
+   
+   .login-reg-panel {
+       position: relative;
+       top: 50%;
+       transform: translateY(-50%);
+       text-align: center;
+       width: 50%;
+       right: 0;
+       left: 0;
+       margin: auto;
+       height: 400px;
+       background-color: #3786bd;
+   }
+   
+   .white-panel {
+       background-color: rgba(255, 255, 255, 1);
+       height: 500px;
+       position: absolute;
+       top: -50px;
+       width: 50%;
+       right: calc(50% - 50px);
+       transition: .3s ease-in-out;
+       z-index: 0;
+       box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+       -o-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+       -ms-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+       -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+       -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+   }
+   
+   .login-reg-panel input[type="radio"] {
+       position: relative;
+       display: none;
+   }
+   
+   .login-reg-panel {
+       color: #fff !important;
+   }
+   
+   .login-reg-panel h5 {
+       color: #fff !important;
+   }
+   
+   .login-reg-panel p {
+       color: #fff !important;
+   }
+   
+   .login-reg-panel #label-register {
+       border: 1px solid #9E9E9E;
+       padding: 5px 5px;
+       width: 150px;
+       display: block;
+       text-align: center;
+       border-radius: 10px;
+       cursor: pointer;
+       font-weight: 600;
+       font-size: 18px;
+   }
+   
+   .login-info-box {
+       width: 30%;
+       padding: 0 50px;
+       top: 20%;
+       left: 0;
+       position: absolute;
+       text-align: left;
+   }
+   
+   .register-info-box {
+       width: 45%;
+       padding: 0 50px;
+       top: 20%;
+       right: 0;
+       position: absolute;
+       text-align: left;
+   }
+   
+   .register-info-box p {
+       font-weight: lighter;
+   }
+   
+   .right-log {
+       right: 50px !important;
+   }
+   
+   .login-show {
+       z-index: 1;
+       transition: 0.3s ease-in-out;
+       color: #242424;
+       text-align: left;
+       padding: 50px;
+   }
+   
+   .login-show h2 {
+       color: #3786bd !important;
+   }
+   
+   .show-log-panel {
+       display: block;
+       opacity: 0.9;
+   }
+   
+   .login-show input {
+       width: 100%;
+       padding: 7px 15px;
+       border: 1px solid #e5e5e5;
+       border-top-left-radius: 5px;
+       border-bottom-right-radius: 5px;
+       appearance: unset;
+       -moz-appearance: unset;
+       -webkit-appearance: unset;
+       -o-appearance: unset;
+       -ms-appearance: unset;
+       outline: none;
+       -moz-outline: none;
+       -webkit-outline: none;
+       -o-outline: none;
+       -ms-outline: none;
+       font-family: 'Open Sans', sans-serif;
+       font-size: 15px;
+       color: #333;
+       box-sizing: border-box;
+       -moz-box-sizing: border-box;
+       -webkit-box-sizing: border-box;
+       -o-box-sizing: border-box;
+       -ms-box-sizing: border-box;
+   }
+   
+   .login-show input[type="text"],
+   .login-show input[type="password"] {
+       width: 100%;
+       display: block;
+       margin: 20px 0;
+       padding: 15px;
+       border: 1px solid #b5b5b5;
+       outline: none;
+   }
+   
+   .login-show .login-button {
+       background: #3786bd;
+       border-top-left-radius: 5px;
+       border-bottom-right-radius: 5px;
+       width: 130px;
+       border: none;
+       cursor: pointer;
+       color: #fff;
+       font-weight: 700;
+       font-size: 15px;
+       padding: 12.5px;
+       -webkit-transition: all 0.3s ease 0s;
+       -moz-transition: all 0.3s ease 0s;
+       -o-transition: all 0.3s ease 0s;
+       transition: all 0.3s ease 0s;
+   }
+   
+   .login-show .login-button:hover {
+       background: #3786bde8;
+   }
+   
+   .register-button {
+       background: #ffffffe8;
+       border-top-left-radius: 5px;
+       border-bottom-right-radius: 5px;
+       width: 130px;
+       border: none;
+       cursor: pointer;
+       color: #3786bd;
+       font-weight: 700;
+       font-size: 15px;
+       padding: 12.5px;
+       -webkit-transition: all 0.3s ease 0s;
+       -moz-transition: all 0.3s ease 0s;
+       -o-transition: all 0.3s ease 0s;
+       transition: all 0.3s ease 0s;
+   }
+   
+   .register-button:hover {
+       background: #ffffff;
+   }
+   
+   .login-show a {
+       display: inline-block;
+       padding: 10px 0;
+   }
+   
+   .login-show a:focus {
+       outline: none !important;
+   }
+   
+   .credit {
+       position: absolute;
+       bottom: 10px;
+       left: 10px;
+       color: #3B3B25;
+       margin: 0;
+       padding: 0;
+       font-family: Arial, sans-serif;
+       text-transform: uppercase;
+       font-size: 12px;
+       font-weight: bold;
+       letter-spacing: 1px;
+       z-index: 99;
+   }
+   
+   @media screen and (max-width: 991px) {
+       .login-reg-panel {
+           width: 75%;
+       }
+       .white-panel {
+           width: 64%;
+       }
+   }
