@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 class Navbar extends Component {
     state = {
@@ -18,7 +19,13 @@ class Navbar extends Component {
 
     logout= () => {
         localStorage.clear()
-        alert("bye")
+        toast.info('good bye', 
+            {
+              position: toast.POSITION.TOP_CENTER,
+              hideProgressBar: true,
+              className: "custom-toast",
+              autoClose: 1000,
+            })
         this.setState({
             redirect: true
         })
@@ -26,7 +33,7 @@ class Navbar extends Component {
 
     renderRedirect = () => {
         if (this.state.redirect) {
-          return <Redirect to='/payaja' />
+          return <Redirect to='/login' />
         }
     }
     render() {
@@ -59,15 +66,18 @@ class Navbar extends Component {
                             alt="User Image"
                         />
                         </div>
-                        <div className="">
-                        {this.renderRedirect()}
-                        <div
-                            className="nav-link d-block"
-                            role="button"
-                            onClick={this.logout}
-                        >
-                            {this.state.username}
-                        </div>
+                        <div 
+                            data-toggle="tooltip" 
+                            data-placement="bottom" 
+                            title="Logout">
+                            {this.renderRedirect()}
+                            <div
+                                className="nav-link d-block"
+                                role="button"
+                                onClick={this.logout}
+                            >
+                                {this.state.username}
+                            </div>
                         </div>
                     </div>
                     </li>

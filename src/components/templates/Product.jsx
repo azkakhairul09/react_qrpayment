@@ -6,6 +6,7 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 import Header from './Header';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 class Product extends Component {
     state = {
@@ -15,10 +16,15 @@ class Product extends Component {
     }
     
     componentDidMount() {
+        this.setState ({
+            loading: true
+        })
+
         const userData = localStorage.getItem('userData');
         let decoded = JSON.parse(userData);
 
-        const urlGetProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product/all"
+        // const urlGetProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product/all"
+        const urlGetProduct = "https://qrispayments.herokuapp.com/product/all"
 
         axios.get(urlGetProduct, {
             headers: {
@@ -40,12 +46,57 @@ class Product extends Component {
             document.body.appendChild(script);            
         })
         .catch((error) => {
-          console.log(error.response.data);
-          if (!error.response.data) {
-            this.setState({
-                redirect: true
-            })  
-          }
+            console.log(error.response.data);
+            if (!error.response.data) {
+                this.setState({
+                    redirect: true
+                })  
+            }
+            this.setState ({
+                loading: true
+            })
+        });
+    }
+
+    disactive = (productId) => {
+        
+        const userData = localStorage.getItem('userData');
+        let decoded = JSON.parse(userData);
+
+        // const urlDisactive = "http://localhost:8085/sangbango-microservices/payment/v1/product/disactivated?productId="+productId
+        const urlDisactive = "https://qrispayments.herokuapp.com/product/disactivated?productId="+productId
+
+        const data = {}
+
+        axios.put(urlDisactive, data, {
+            headers: {
+                Authorization: decoded.token
+            }
+        })
+        .then((response) => {
+            console.log(response.data)
+            this.setState ({
+                loading: false
+            })
+            toast.info('product disactivated', 
+            {
+                position: toast.POSITION.TOP_CENTER,
+                hideProgressBar: true,
+                className: "custom-toast",
+                autoClose: 1500,
+            })
+            setTimeout(
+                function() {
+                    window.location.reload(false);
+                },
+                1500
+            );
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+            this.setState ({
+                loading: true
+            })
         });
     }
     render() {
@@ -60,14 +111,6 @@ class Product extends Component {
             alert("oops, your session was expired")
             this.props.history.push('payaja')
         }
-
-        if (this.state.loading) {
-            return <div>Loading ...</div>
-        }
-
-        if (!this.state.products) {
-            return <div>didn't get products</div>
-        }
         return (
             <div>
                 <Sidebar />
@@ -77,53 +120,64 @@ class Product extends Component {
                   <Header />
                     {/* Main content */}
                     <section className="content">
-                    <div className="row">
+                    <div className="row ml-0 mr-0">
                         <div className="col-12">
                         <div className="card">
                             {/* /.card-header */}
                             <div className="card-body">
-                            <div className="row mb-3">
-                                <div className="col">
-                                <Link
-                                    className="btn btn-primary"
-                                    to="/product_form"
-                                >
-                                    <small>Add Product</small>
-                                    &nbsp;
-                                    <i className="fas fa-fw fa-plus-circle"></i>
-                                </Link>
+                            {this.state.loading ? (
+                                <div style={{textAlign:"center"}}>
+                                    <img src={require('../img/loader.gif')} alt="loader"/>
                                 </div>
-                            </div>
-                            <hr />
-                            <table
-                                style={{ fontSize: "12px" }}
-                                id="products"
-                                className="table table-bordered table-hover"
-                            >
-                                <thead>
-                                <tr>
-                                    <th>Categorize</th>
-                                    <th>Product ID</th>
-                                    <th>Product Name</th>
-                                    <th>Price (IDR)</th>
-                                    <th>Image</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.state.products.map((product, i) => (
-                                    <tr key={i}>
-                                    <td>{product.categorize}</td>
-                                    <td>{product.productId}</td>
-                                    <td>{product.productName}</td>
-                                    <td>Rp{product.price}</td>
-                                    <td>{product.productImage}</td>
-                                    <td>{product.productDesc}</td>
-                                    </tr>
-                                ))}
-                                {/* {transactionHistory} */}
-                                </tbody>
-                            </table>
+                            ) : (
+                                <div>
+                                    <div className="row mb-3">
+                                        <div className="col">
+                                        <Link
+                                            className="btn btn-primary"
+                                            to="/product_form"
+                                        >
+                                            <i className="fas fa-fw fa-plus-circle"></i>
+                                            <small> New</small>
+                                        </Link>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <table
+                                        style={{ fontSize: "12px", width: "100%" }}
+                                        id="products"
+                                        className="table table-bordered table-hover"
+                                    >
+                                        <thead>
+                                        <tr>
+                                            <th>Active</th>
+                                            <th>Categorize</th>
+                                            <th>Product ID</th>
+                                            <th>Product Name</th>
+                                            <th>Price (IDR)</th>
+                                            <th>Image</th>
+                                            <th>Description</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {this.state.products.map((product, i) => (
+                                            <tr key={i}>
+                                            <td>
+                                                <div style={{color:"#007bff", cursor:"pointer"}} onClick={() => this.disactive(product.productId)}><i class="fas fa-minus-circle" style={{color: "red"}}></i></div>
+                                            </td>
+                                            <td>{product.categorize}</td>
+                                            <td>{product.productId}</td>
+                                            <td>{product.productName}</td>
+                                            <td>Rp{product.price}</td>
+                                            <td>{product.productImage}</td>
+                                            <td>{product.productDesc}</td>
+                                            </tr>
+                                        ))}
+                                        {/* {transactionHistory} */}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
                             </div>
                             {/* /.card-body */}
                         </div>

@@ -21,7 +21,7 @@
 }
 
 .App-link {
-    color: #61dafb;
+    color: #3786bd !important
 }
 
 @keyframes App-logo-spin {
@@ -39,4 +39,8 @@ td {
 
 .btn.btn-primary:disabled {
     cursor: not-allowed;
+}
+
+.custom-toast {
+    background-color: #61dafb;
 }

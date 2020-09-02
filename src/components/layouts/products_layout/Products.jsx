@@ -10,7 +10,8 @@ class Products extends Component {
     }
 
     componentDidMount() {
-        const urlGetProducts = "http://localhost:8085/sangbango-microservices/payment/v1/product/all"
+        // const urlGetProducts = "http://localhost:8085/sangbango-microservices/payment/v1/product/all"
+        const urlGetProducts = "https://qrispayments.herokuapp.com/product/all"
 
         Axios.get(urlGetProducts, {
             headers: {
@@ -58,13 +59,13 @@ class Products extends Component {
                         <div className="row justify-content-center">
                             <div className="col-xl-5">
                                 <div className="section_tittle text-center">
-                                <h2>Products</h2>
+                                <h2 className="wow fadeIn">Products</h2>
                                 </div>
                             </div>
                         </div>
                         <div className="row">
                             {this.state.products.map((product, i) => (
-                            <div className="col-sm-4 col-lg-3 mb-5" key={i}>
+                            <div className="wow slideInUp col-sm-4 col-lg-3 mb-5" key={i}>
                                 <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
                                 <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
                                     <div className="special_cource_text">

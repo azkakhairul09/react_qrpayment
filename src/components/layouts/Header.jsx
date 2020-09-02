@@ -58,9 +58,13 @@ export default class Header extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/products">Products</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/history">History</Link>
-                            </li>
+                            {this.state.isLogin ? (
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/history">History</Link>
+                                </li>
+                            ) : (
+                                ""
+                            )}
                             {this.state.isLogin ? (
                                 <Logout />
                             ) : (

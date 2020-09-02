@@ -41,8 +41,10 @@ class Register extends Component {
             roleId: "RL-78"
         };
 
+        // const urlRegistration =
+        // "http://localhost:8085/sangbango-microservices/payment/v1/registration?";
         const urlRegistration =
-        "http://localhost:8085/sangbango-microservices/payment/v1/registration?";
+        "https://qrispayments.herokuapp.com/registration?";
 
         const registration = {
             name: this.state.name,
@@ -93,6 +95,9 @@ class Register extends Component {
             registerForm.style.display = 'block';
             addressForm.style.display = 'none';
             registerForm.className += " animated fadeInLeft faster";
+        }
+        if (localStorage.getItem('userData')) {
+            this.props.history.push("/payaja")
         }
         return (
             <div>

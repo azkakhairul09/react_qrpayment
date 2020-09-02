@@ -4,6 +4,7 @@ import Sidebar from '../templates/Sidebar'
 import Footer from '../templates/Footer'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 class ProductForm extends Component {
     constructor() {
@@ -37,7 +38,8 @@ class ProductForm extends Component {
             "Authorization": decoded.token
         };
 
-        const urlProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product"
+        // const urlProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product"
+        const urlProduct = "https://qrispayments.herokuapp.com/product"
 
         const product = {
             categorize: this.state.categorize,
@@ -58,6 +60,13 @@ class ProductForm extends Component {
             console.log(res);
             this.setState({
                 redirect: true
+            })
+            toast.info('success', 
+            {
+              position: toast.POSITION.TOP_CENTER,
+              hideProgressBar: true,
+              className: "custom-toast",
+              autoClose: 1000,
             })
         })
         .catch((error) => {
@@ -86,7 +95,7 @@ class ProductForm extends Component {
                     <section className="content-header">
                     <div className="container-fluid">
                         <div className="row">
-                        <div className="col-md-12">
+                        <div className="col-md-5">
                             {/* general form elements disabled */}
                             <div className="card card-dark">
                             <div className="card-header">
@@ -96,7 +105,7 @@ class ProductForm extends Component {
                             <div className="card-body">
                                 <form onSubmit={this.onSubmit}>
                                 <div className="row">
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-8">
                                     {/* text input */}
                                     <div className="form-group">
                                         <label>Categorize</label>
@@ -114,7 +123,7 @@ class ProductForm extends Component {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-12">
                                     {/* text input */}
                                     <div className="form-group">
                                         <label>Product Name</label>
@@ -132,9 +141,9 @@ class ProductForm extends Component {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-sm-3">
+                                    <div className="col-sm-6">
                                     <div className="form-group">
-                                        <label>Product Description</label>
+                                        <label>Description</label>
                                         <input
                                         type="text"
                                         className="form-control"
@@ -147,9 +156,9 @@ class ProductForm extends Component {
                                         />
                                     </div>
                                     </div>
-                                    <div className="col-sm-3">
+                                    <div className="col-sm-6">
                                     <div className="form-group">
-                                        <label>Product Price</label>
+                                        <label>Price</label>
                                         <input
                                         type="text"
                                         className="form-control"

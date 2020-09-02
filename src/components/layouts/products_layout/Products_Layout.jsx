@@ -3,13 +3,19 @@ import Header from '../Header'
 import Banner from './Banner'
 import Products from './Products'
 import Footer from '../Footer'
-import "../dist/css/animate.css"
 import "../dist/css/themify-icons.css"
 import "../dist/css/magnific-popup.css"
 import "../dist/css/slick.css"
 import "../dist/css/style.css"
+import WOW from "wow.js"
 
 class Layout extends Component {
+    componentDidMount() {
+        const wow = new WOW();
+        wow.init();
+        return () => {
+        };
+      }
     render() {
         const script = document.createElement("script");
 

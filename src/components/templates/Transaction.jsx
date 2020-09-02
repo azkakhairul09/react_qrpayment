@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import Header from './Header';
 import axios from "axios";
+import { toast } from 'react-toastify';
 
 class Transaction extends Component {
     state = {
@@ -12,13 +13,18 @@ class Transaction extends Component {
         transactions: []
     }
     
-    componentDidMount() {
+    getData = () => {
+        this.setState ({
+            loading: true
+        })
+
         const userData = localStorage.getItem('userData');
         let decoded = JSON.parse(userData);
 
         const token = decoded.token
 
-        const urlGetTransaction = "http://localhost:8085/sangbango-microservices/payment/v1/transaction/all"
+        // const urlGetTransaction = "http://localhost:8085/sangbango-microservices/payment/v1/transaction/all"
+        const urlGetTransaction = "https://qrispayments.herokuapp.com/transaction/all"
 
         axios.get(urlGetTransaction, {
             headers: {
@@ -40,7 +46,63 @@ class Transaction extends Component {
             document.body.appendChild(script);            
         })
         .catch((error) => {
-          console.log(error.response.data);
+            console.log(error.response.data);
+            if (!error.response.data) {
+                this.setState({
+                    redirect: true
+                })  
+            }
+            this.setState ({
+                loading: true
+            })
+        });
+    }
+
+    componentDidMount() {
+        this.getData()
+    }
+
+    confirmation = (transactionId) => {
+        const userData = localStorage.getItem('userData');
+        let decoded = JSON.parse(userData);
+
+        const token = decoded.token
+
+        // const urlConfirmation = "http://localhost:8085/sangbango-microservices/payment/v1/transaction/confirmation?transactionId="+transactionId
+        const urlConfirmation = "https://qrispayments.herokuapp.com/transaction/confirmation?transactionId="+transactionId
+
+        const data = {}
+        axios.put(urlConfirmation, data, {
+            headers: {
+                Authorization: token
+            }
+        })
+        .then((response) => {
+            let res = response.data;
+            console.log(res);
+            this.setState ({
+                loading: false
+            })
+            toast.info('transaction confirmed', 
+            {
+                position: toast.POSITION.TOP_CENTER,
+                hideProgressBar: true,
+                className: "custom-toast",
+                autoClose: 1500,
+            })
+            setTimeout(
+                function() {
+                    window.location.reload(false);
+                },
+                1500
+            );
+            // this.getData()          
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+            this.setState ({
+                loading: true
+            })
         });
     }
     render() {
@@ -48,15 +110,12 @@ class Transaction extends Component {
         let decoded = JSON.parse(userData);
 
         if (decoded.role !== "Administrator") {
-          this.props.history.push('payaja')
+          this.props.history.push('/payaja')
         }
 
-        if (this.state.loading) {
-            return <div>Loading ...</div>
-        }
-
-        if (!this.state.transactions) {
-            return <div>didn't get transactions</div>
+        if (this.state.redirect) {
+            alert("oops, your session was expired")
+            this.props.history.push('payaja')
         }
         return (
             <div>
@@ -67,52 +126,60 @@ class Transaction extends Component {
                   <Header />
                     {/* Main content */}
                     <section className="content">
-                    <div className="row">
+                    <div className="row ml-0 mr-0">
                         <div className="col-12">
                         <div className="card">
                             {/* /.card-header */}
                             <div className="card-body">
-                            <table
-                                style={{ fontSize: "12px" }}
-                                id="transactions"
-                                className="table table-bordered table-hover"
-                            >
-                                <thead>
-                                <tr>
-                                    <th>Verif</th>
-                                    <th>Invoice Number</th>
-                                    <th>Product Name</th>
-                                    <th>Amount (IDR)</th>
-                                    <th>Transaction Date</th>
-                                    <th>Status</th>
-                                    <th>Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {this.state.transactions.map((transaction, i) => (
-                                    <tr key={i}>
-                                    <td>
-                                        {transaction.isConfirmed ? (
-                                            <button className="btn btn-primary" disabled={true}>
-                                                <i className="far fa-check-circle"></i>
-                                            </button>
-                                        ) : (
-                                            <button className="btn btn-primary">
-                                                <i className="far fa-check-circle"></i>
-                                            </button>
-                                        )}
-                                    </td>
-                                    <td>{transaction.invoice.invoiceNumber}</td>
-                                    <td>{transaction.invoice.product.productName}</td>
-                                    <td>Rp{transaction.amount}</td>
-                                    <td>{transaction.transactionDate}</td>
-                                    <td>{transaction.status}</td>
-                                    <td>{transaction.description}</td>
-                                    </tr>
-                                ))}
-                                {/* {transactionHistory} */}
-                                </tbody>
-                            </table>
+                                {this.state.loading ? (
+                                    <div style={{textAlign:"center"}}>
+                                        <img src={require('../img/loader.gif')} alt="loader"/>
+                                    </div>
+                                ) : (
+                                    <table
+                                        style={{ fontSize: "12px", width: "100%" }}
+                                        id="transactions"
+                                        className="table table-bordered table-hover"
+                                    >
+                                        <thead>
+                                            <tr>
+                                                <th>Invoice No.</th>
+                                                <th>Merchant ID</th>
+                                                <th>Product Name</th>
+                                                <th>Amount (IDR)</th>
+                                                <th>Admin (IDR)</th>
+                                                <th>Total_Settled (IDR)</th>
+                                                <th>Transaction Date</th>
+                                                <th>Status</th>
+                                                <th>Description</th>
+                                                <th>Trx Id</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.state.transactions.map((transaction, i) => (
+                                                <tr key={i}>
+                                                <td>
+                                                    {transaction.isConfirmed ? (
+                                                        <div style={{color:"#212529"}}>{transaction.invoice.invoiceNumber}</div>
+                                                    ):(
+                                                        <div style={{color:"#007bff", cursor:"pointer"}} onClick={() => this.confirmation(transaction.transactionId)}>{transaction.invoice.invoiceNumber}</div>
+                                                    )}
+                                                </td>
+                                                <td>{transaction.merchantId}</td>
+                                                <td>{transaction.invoice.product.productName}</td>
+                                                <td>Rp{transaction.amount}</td>
+                                                <td>Rp{transaction.invoice.product.adminPrice}</td>
+                                                <td>Rp{transaction.invoice.product.price}</td>
+                                                <td>{transaction.transactionDate}</td>
+                                                <td>{transaction.status}</td>
+                                                <td>{transaction.description}</td>
+                                                <td>{transaction.transactionId}</td>
+                                                </tr>
+                                            ))}
+                                            {/* {transactionHistory} */}
+                                        </tbody>
+                                    </table>
+                                )}
                             </div>
                             {/* /.card-body */}
                         </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default class Logout extends Component {
     state = {
@@ -21,11 +22,18 @@ export default class Logout extends Component {
         this.setState ({
             redirect: true
         })
+        toast.info('good bye', 
+            {
+              position: toast.POSITION.TOP_CENTER,
+              hideProgressBar: true,
+              autoClose: 1000,
+              className: "custom-toast"
+            })
     }
 
     renderRedirect = () => {
         if (this.state.redirect) {
-          return <Redirect to='/payaja' />
+          return <Redirect to='/login' />
         }
     }
     render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch, Link, Redirect} from "react-router-dom"
-import Register from './components/projects/Register';
+import Register from './components/akses/Register';
 import Dashboard from './components/templates/Dashboard';
 import Product from './components/templates/Product';
 import ProductForm from './components/templates/ProductForm';
@@ -11,7 +11,7 @@ import Axios from 'axios';
 import Products_Detail from './components/layouts/products_layout/details_layout/Detail_Layout';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./components/projects/Login.css";
+import "./components/akses/Login.css";
 import Transaction_Status from './components/layouts/transaction_layout/Transaction_Status';
 import Transaction_History from './components/layouts/history_layout/Transaction_History';
 import HelloWorld from './components/layouts/transaction_layout/HelloWorld';
@@ -68,15 +68,16 @@ class Login extends Component {
           "Content-Type": "application/json",
       };
 
-      const urlLogin =
-      "http://localhost:8085/sangbango-microservices/payment/v1/login";
+      // const urlLogin =
+      // "http://localhost:8085/sangbango-microservices/payment/v1/login";
+      const url = "https://qrispayments.herokuapp.com/login"
 
       const data = {
           email: this.state.email,
           password: this.state.password
       }
 
-      Axios.post(urlLogin, data, headers)
+      Axios.post("https://qrispayments.herokuapp.com/login", data, headers)
       .then((response) => {
           let res = response.data;
           console.log(res.role)
@@ -87,7 +88,13 @@ class Login extends Component {
                 redirectToReferrer: true 
               })
             })
-            alert("welcome")
+            toast.info('welcome ', 
+            {
+              position: toast.POSITION.TOP_CENTER,
+              hideProgressBar: true,
+              className: "custom-toast",
+              autoClose: 1000,
+            })
             this.props.history.push("/dashboard");
           } else {
             fakeAuth.authenticate(() => {
@@ -95,15 +102,31 @@ class Login extends Component {
                 redirectToReferrer: true 
               })
             })
-            alert("welcome")
+            toast.info('welcome ', 
+            {
+              position: toast.POSITION.TOP_CENTER,
+              hideProgressBar: true,
+              className: "custom-toast",
+              autoClose: 1000,
+            })
             this.props.history.push("/payaja");
           }
       })
       .catch((error) => {
         console.log(error.response.data);
+        toast.info("username or password is not valid.", 
+          {
+            position: toast.POSITION.TOP_CENTER,
+            hideProgressBar: true,
+            className: "custom-toast",
+            autoClose: 1000,
+          })
       });
   }
   render() {
+      if (localStorage.getItem('userData')) {
+        this.props.history.push("/payaja")
+      }
       return (
           <div className="login-content">
               <div className="login-reg-panel">
@@ -148,7 +171,13 @@ class Logout extends Component {
 
   logout = () => {
       localStorage.clear()
-      alert("bye")
+      toast.info('good bye', 
+            {
+              position: toast.POSITION.TOP_CENTER,
+              hideProgressBar: true,
+              className: "custom-toast",
+              autoClose: 1000,
+            })
       window.location.reload(false);
       fakeAuth.logout(() => {
         this.setState({
@@ -174,7 +203,7 @@ class Logout extends Component {
 
 const PrivateRoute = ({ component: Component, ...rest }) => ( 
   <Route {...rest} render= {(props) => (
-    fakeAuth.isAdministrator === true
+    localStorage.getItem('userData')
     ? <Component {...props} />
     : <Redirect
       to={{
@@ -195,13 +224,13 @@ class App extends Component {
               <Route path="/payaja" exact component={Main_Layout} />
               <Route path="/products" exact component={Products_Layout} />
               <Route path="/products/detail" exact component={Products_Detail} />
-              <Route path="/transactionstatus" exact component={Transaction_Status} />
-              <Route path="/history" exact component={Transaction_History} />
-              <Route path="/transactions/detail" exact component={Detail_History} />
-              <Route path="/dashboard" exact component={Dashboard} />
-              <Route path="/product" exact component={Product} />
-              <Route path="/product_form" exact component={ProductForm} />
-              <Route path="/transactions" exact component={Transaction} />
+              <PrivateRoute path="/transactionstatus" exact component={Transaction_Status} />
+              <PrivateRoute path="/history" exact component={Transaction_History} />
+              <PrivateRoute path="/transactions/detail" exact component={Detail_History} />
+              <PrivateRoute path="/dashboard" exact component={Dashboard} />
+              <PrivateRoute path="/product" exact component={Product} />
+              <PrivateRoute path="/product_form" exact component={ProductForm} />
+              <PrivateRoute path="/transactions" exact component={Transaction} />
               <Route path="/registration-page" exact component={Register} />
               <Route path="/login" component={Login} />
               <Route path="/hello" exact component={HelloWorld} />

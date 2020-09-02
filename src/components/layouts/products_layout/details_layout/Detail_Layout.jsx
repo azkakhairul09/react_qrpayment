@@ -7,8 +7,15 @@ import "../../dist/css/themify-icons.css"
 import "../../dist/css/magnific-popup.css"
 import "../../dist/css/slick.css"
 import "../../dist/css/style.css"
+import WOW from "wow.js"
 
 class Detail_Layout extends Component {
+    componentDidMount() {
+        const wow = new WOW();
+        wow.init();
+        return () => {
+        };
+    }
     render() {
         return (
             <div>

@@ -5,14 +5,14 @@ class Banner extends Component {
         return (
             <div>
                 {/* breadcrumb start*/}
-                <section className="breadcrumb breadcrumb_bg">
+                <section className="wow fadeIn breadcrumb breadcrumb_bg">
                 <div className="container">
                     <div className="row">
                     <div className="col-lg-12">
                         <div className="breadcrumb_iner text-center">
                         <div className="breadcrumb_iner_item">
-                            <h2 style={{textTransform: "uppercase"}}>Our Products</h2>
-                            <p>Home<span>/</span>Products</p>
+                            <h2 className="wow slideInUp" style={{textTransform: "uppercase"}}>Our Products</h2>
+                            <p className="wow slideInDown">Home<span>/</span>Products</p>
                         </div>
                         </div>
                     </div>

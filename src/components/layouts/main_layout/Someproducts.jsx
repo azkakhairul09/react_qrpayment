@@ -3,6 +3,14 @@ import Axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 
 class Someproducts extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            fetchSuccess: false
+        }
+    }
+
     state = {
         loading: true,
         someproducts: [],
@@ -10,7 +18,8 @@ class Someproducts extends Component {
     }
 
     componentDidMount() {
-        const urlGetSomeProducts = "http://localhost:8085/sangbango-microservices/payment/v1/product/someproducts"
+        // const urlGetSomeProducts = "http://localhost:8085/sangbango-microservices/payment/v1/product/someproducts"
+        const urlGetSomeProducts = "https://qrispayments.herokuapp.com/product/someproducts"
 
         Axios.get(urlGetSomeProducts, {
             headers: {
@@ -21,11 +30,13 @@ class Someproducts extends Component {
             console.log(res);
             this.setState ({
                 someproducts: response.data.content,
-                loading: false
-            })         
+                loading: false,
+                fetchSuccess: true
+            })      
         })
         .catch((error) => {
           console.log(error.response.data);
+          console.log("heboh ",error.response.status);
         });
     }
     detail = (productId) => {
@@ -56,15 +67,15 @@ class Someproducts extends Component {
                     <div className="row justify-content-center">
                         <div className="col-xl-5">
                             <div className="section_tittle text-center">
-                                <p>popular courses</p>
-                                <h2>Special Courses</h2>
+                                <p className="wow fadeIn">popular courses</p>
+                                <h2 className="wow fadeIn">Special Courses</h2>
                             </div>
                         </div>
                     </div>
                     
                     <div className="row mb-5">
                     {this.state.someproducts.map((product, i) => (
-                    <div className="col-sm-6 col-lg-4" key={i}>
+                    <div className="col-sm-6 col-lg-4 wow slideInUp" key={i}>
                         <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
                         <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
                         <div className="special_cource_text">
@@ -87,7 +98,7 @@ class Someproducts extends Component {
                     ))}
                     </div>
                     <div className="row justify-content-center">
-                    <Link to="/products" className="btn_4">Read More</Link>
+                        <Link to="/products" className="btn_4 wow zoomIn">Read More</Link>
                     </div>
                 </div>
                 </section>

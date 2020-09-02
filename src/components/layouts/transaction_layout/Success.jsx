@@ -4,11 +4,6 @@ import Qs from 'query-string'
 import Axios from 'axios';
 
 class Success extends Component {
-    constructor(props) {
-        super(props)
-
-    }
-
     state = {
         isClicked: false,
         disabled: false,
@@ -32,7 +27,8 @@ class Success extends Component {
             invoiceNumber: invoiceNumber
         }
 
-        const urlGetTransaction = "http://localhost:8085/sangbango-microservices/payment/v1/transaction?" + Qs.stringify(param)
+        const urlGetTransaction = "https://qrispayments.herokuapp.com/transaction?" + Qs.stringify(param)
+        // const urlGetTransaction = "http://localhost:8085/sangbango-microservices/payment/v1/transaction?" + Qs.stringify(param)
 
         Axios.get(urlGetTransaction, {
             headers: {
@@ -46,8 +42,12 @@ class Success extends Component {
             var reverse = angka.toString().split('').reverse().join(''),
             ribuan = reverse.match(/\d{1,3}/g);
             ribuan = ribuan.join('.').split('').reverse().join('');
+
+            var str = res.transactionDate;
+            var my = str.split(".").slice(0, -1).join(" ");
+
             this.setState ({
-                transactionDate: res.transactionDate,
+                transactionDate: my,
                 transactionId: res.transactionId,
                 description: res.description,
                 amount: ribuan,
@@ -123,7 +123,7 @@ class Success extends Component {
                         </aside>
                         {this.state.isClicked ? (
                             <div>
-                                <div style={{borderRadius:"0", marginBottom: "0"}} className="alert alert-success">
+                                <div style={{borderRadius:"0", marginBottom: "0", padding: ".75rem .75rem"}} className="alert alert-success">
                                     Congratulation, your transaction have been successfully!
                                 </div>
                                 <div className="blog_right_sidebar">

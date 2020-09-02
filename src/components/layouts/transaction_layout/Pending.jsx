@@ -3,15 +3,6 @@ import { Link } from 'react-router-dom';
 import QRCode from 'qrcode.react';
 
 class Pending extends Component {
-    constructor(props) {
-        super(props)
-
-        // this.state = {
-        //     isClicked: false,
-        //     disabled: false
-        // }
-    }
-
     state = {
         isClicked: false,
         disabled: false

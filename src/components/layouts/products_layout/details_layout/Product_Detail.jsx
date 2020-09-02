@@ -26,7 +26,8 @@ class Product_Detail extends Component {
         const param = {
             productId: localStorage.productId
         } 
-        const urlGetProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product/detail?"+Qs.stringify(param)
+        // const urlGetProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product/detail?"+Qs.stringify(param)
+        const urlGetProduct = "https://qrispayments.herokuapp.com/product/detail?"+Qs.stringify(param)
 
         Axios.get(urlGetProduct, {
             headers: {
@@ -35,18 +36,34 @@ class Product_Detail extends Component {
         .then((response) => {
             let res = response.data.content;
             console.log(res);
+
+            var nominal = res.price;
+            var reverse = nominal.toString().split('').reverse().join(''),
+            format = reverse.match(/\d{1,3}/g);
+            format = format.join('.').split('').reverse().join('');
+
+            var admin = res.adminPrice;
+            var reverse_admin = admin.toString().split('').reverse().join(''),
+            format_admin = reverse_admin.match(/\d{1,3}/g);
+            format_admin = format_admin.join('.').split('').reverse().join('');
+
+            var totalPrice = res.totalPrice;
+            var reverse_totalPrice = totalPrice.toString().split('').reverse().join(''),
+            format_totalPrice = reverse_totalPrice.match(/\d{1,3}/g);
+            format_totalPrice = format_totalPrice.join('.').split('').reverse().join('');
+
             this.setState ({
-                adminPrice: res.adminPrice,
+                adminPrice: format_admin,
                 categorize: res.categorize,
                 createdBy: res.createdBy,
                 createdDate: res.createdDate,
                 id: res.id,
-                price: res.price,
+                price: format,
                 productDesc: res.productDesc,
                 productId: res.productId,
                 productImage: res.productImage,
                 productName: res.productName,
-                totalPrice: res.totalPrice,
+                totalPrice: format_totalPrice,
                 updatedDate: res.updatedDate,
                 loading: false
             })      
@@ -68,7 +85,7 @@ class Product_Detail extends Component {
             <div>
                 {/*================ Start Course Details Area =================*/}
                 <section className="course_details_area section_padding">
-                <div className="container">
+                <div className="container wow fadeIn">
                     <div className="row">
                     <div className="col-lg-8 course_details_left">
                         <div className="row">

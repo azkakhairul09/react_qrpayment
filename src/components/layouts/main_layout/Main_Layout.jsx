@@ -10,22 +10,43 @@ import "../dist/css/slick.css"
 import "../dist/css/style.css"
 
 class Layout extends Component {
-    render() {
+    state = {
+        loading: true
+    }
+
+    componentDidMount() {
         const script = document.createElement("script");
 
         script.src = "js/fixed_menu.js";
         script.async = true;
     
-        document.body.appendChild(script);  
+        document.body.appendChild(script); 
+    }
+    render() {
+        setTimeout(
+            function() {
+                this.setState({ loading: false });
+            }
+            .bind(this),
+            1500
+        );
 
         localStorage.removeItem('productId');
-        localStorage.removeItem('invoiceNo') 
+        localStorage.removeItem('invoiceNo');
         return (
             <div>
-                <Header />
-                <Banner />
-                <Someproducts />
-                <Footer />
+                {this.state.loading ? (
+                    <div style={{textAlign: "center"}}>
+                        <img src={require('../dist/img/main_loader.gif')} alt="loader"/>
+                    </div>
+                ) : (
+                    <div>
+                        <Header />
+                        <Banner />
+                        <Someproducts />
+                        <Footer />
+                    </div>
+                )}
             </div>
         )
     }
