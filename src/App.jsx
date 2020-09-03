@@ -59,6 +59,11 @@ class Login extends Component {
 
   onChange(e) {
       this.setState({ [e.target.name]: e.target.value});
+      // const { id, value } = e.target;
+      // this.setState({
+      //   ...this.state,
+      //   [id]: value,
+      // });
   }
 
   onSubmit(e) {
@@ -73,11 +78,11 @@ class Login extends Component {
       const url = "https://qrispayments.herokuapp.com/login"
 
       const data = {
-          email: this.state.email,
-          password: this.state.password
+          email: e.target.elements.email.value,
+          password: e.target.elements.password.value
       }
 
-      Axios.post("https://qrispayments.herokuapp.com/login", data, headers)
+      Axios.post(url, data, headers)
       .then((response) => {
           let res = response.data;
           console.log(res.role)

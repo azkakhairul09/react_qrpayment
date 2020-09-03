@@ -724,6 +724,10 @@
         color: #fff;
     }
     
+    .custom-toast {
+        background-color: #3786bd !important
+    }
+    
     btn_4:disabled {
         cursor: not-allowed;
     }

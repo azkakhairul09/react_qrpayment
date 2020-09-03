@@ -109,7 +109,7 @@ class Register extends Component {
                             <p className="text-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et molestie ac feugiat sed. Diam volutpat commodo.</p>
                             <p className="text-2"><span>Eu ultrices:</span> Vitae auctor eu augue ut. Malesuada nunc vel risus commodo viverra. Praesent elementum facilisis leo vel.</p>
                             <div className="form-left-last">
-                                <p>Have an account ? please <Link to="/login-page" className="login-link">sign in</Link></p>
+                                <p>Have an account ? please <Link to="/login" className="login-link">sign in</Link></p>
                             </div>
                         </div>
                         <div className="form-detail">

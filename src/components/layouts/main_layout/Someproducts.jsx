@@ -57,7 +57,9 @@ class Someproducts extends Component {
         }
 
         if (!this.state.someproducts) {
-            return <div>didn't get products</div>
+            return  <div style={{margin:"auto"}}>
+                        <h3>product data is empty</h3>
+                    </div>
         }
         return (
             <div>
@@ -74,28 +76,28 @@ class Someproducts extends Component {
                     </div>
                     
                     <div className="row mb-5">
-                    {this.state.someproducts.map((product, i) => (
-                    <div className="col-sm-6 col-lg-4 wow slideInUp" key={i}>
-                        <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
-                        <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
-                        <div className="special_cource_text">
-                            {this.renderRedirect()}
-                            <div className="btn_4" onClick={() => this.detail(product.productId)}>DETAIL</div>
-                            <h4>Rp {product.price}</h4>
-                            {/* <Link to="course-details.html"><h3>{product.productName}</h3></Link> */}
-                            <p>{product.productName}</p>
-                            <div className="author_info">
-                            <div className="author_img">
-                                <div className="author_info_text">
-                                <span>Created by:</span>
-                                <h5><Link to="#">{product.createdBy}</Link></h5>
+                        {this.state.someproducts.map((product, i) => (
+                            <div className="col-sm-6 col-lg-4 wow slideInUp" key={i}>
+                                <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
+                                <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
+                                <div className="special_cource_text">
+                                    {this.renderRedirect()}
+                                    <div className="btn_4" onClick={() => this.detail(product.productId)}>DETAIL</div>
+                                    <h4>Rp {product.price}</h4>
+                                    {/* <Link to="course-details.html"><h3>{product.productName}</h3></Link> */}
+                                    <p>{product.productName}</p>
+                                    <div className="author_info">
+                                    <div className="author_img">
+                                        <div className="author_info_text">
+                                        <span>Created by:</span>
+                                        <h5><Link to="#">{product.createdBy}</Link></h5>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    ))}
+                        ))}
                     </div>
                     <div className="row justify-content-center">
                         <Link to="/products" className="btn_4 wow zoomIn">Read More</Link>
