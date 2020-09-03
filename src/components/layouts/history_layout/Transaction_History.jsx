@@ -174,52 +174,59 @@ class Transaction_History extends Component {
     render() {
         return (
             <div>
-                <Header />
-                <section className="course_details_area section_padding" style={{padding: "120px 0"}}>
-                <div className="container " style={{borderLeft: "2px solid #0000004d", borderRight: "2px solid #0000004d"}}>
-                    <div className="row">
-                    <div className="col-lg-12 course_details_left">
-                        <div className="content_history">
-                        <div className="here" style={{fontWeight: "600"}}>
-                            <h4>TRANSACTION HISTORY</h4>
-                            <div className="bor-bottom"></div>
+                {this.state.modalIsOpen ? (
+                    ""
+                ) : (
+                    <div>
+                    <Header />
+                    <section className="course_details_area section_padding" style={{padding: "120px 0"}}>
+                        <div className="container " style={{borderLeft: "2px solid #0000004d", borderRight: "2px solid #0000004d"}}>
+                            <div className="row">
+                            <div className="col-lg-12 course_details_left">
+                                <div className="content_history">
+                                <div className="here" style={{fontWeight: "600"}}>
+                                    <h4>TRANSACTION HISTORY</h4>
+                                    <div className="bor-bottom"></div>
+                                </div>
+                                
+                                <div className="blog_right_sidebar" >
+                                {this.state.invoices.map((invoice, i) => (
+                                    <aside className="single_sidebar_widget popular_post_widget border-bottom pb-4" key={i} style={{background: "#fff"}}>
+                                        <div className="row justify-content-between d-flex details">
+                                            <div className="col-sm-4"><span>No. Invoice</span></div>
+                                            <div className="col-sm-4"><span style={{textTransform:"capitalize"}}>Invoice Date</span></div>
+                                            <div className="col-sm-4"><span className="badge badge-success" style={{textTransform:"capitalize", float:"right"}}>{invoice.status}</span></div>
+                                        </div>
+                                        <div className="row justify-content-between d-flex details">
+                                            <div className="col-sm-4"><span style={{fontWeight:"bold"}}>{invoice.invoice.invoiceNumber}</span></div>
+                                            <div className="col-sm-4"><span style={{textTransform:"capitalize"}}>{invoice.invoice.invoiceDate}</span></div>
+                                            <div className="col-sm-4"></div>
+                                        </div>
+                                        <div className="justify-content-between d-flex details">
+                                            <span>{invoice.invoice.product.productName}</span>
+                                        </div>
+                                        <div className="row justify-content-between d-flex details">
+                                            <div className="col-sm-4"><span>x{invoice.invoice.qty}</span></div>
+                                            <div className="col-sm-4"><span style={{textTransform:"capitalize"}}>Total</span></div>
+                                            <div className="col-sm-4"></div>
+                                        </div>
+                                        <div className="row justify-content-between d-flex details">
+                                            <div className="col-sm-4"></div>
+                                            <div className="col-sm-4"><span>Rp {invoice.invoice.product.price}</span></div>
+                                            <div className="col-sm-4"><span onClick={() => this.transactionDetail(invoice.invoice.invoiceNumber)} style={{cursor:"pointer", float:"right"}}><i className="far fa-eye"></i> Click to detail</span></div>
+                                        </div>
+                                    </aside>
+                                ))}                      
+                                </div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
-                        
-                        <div className="blog_right_sidebar" >
-                        {this.state.invoices.map((invoice, i) => (
-                            <aside className="single_sidebar_widget popular_post_widget border-bottom pb-4" key={i} style={{background: "#fff"}}>
-                                <div className="row justify-content-between d-flex details">
-                                    <div className="col-sm-4"><small>No. Invoice</small></div>
-                                    <div className="col-sm-4"><small style={{textTransform:"capitalize"}}>Invoice Date</small></div>
-                                    <div className="col-sm-4"><span className="badge badge-success" style={{textTransform:"capitalize", float:"right"}}>{invoice.status}</span></div>
-                                </div>
-                                <div className="row justify-content-between d-flex details">
-                                    <div className="col-sm-4"><small style={{fontWeight:"bold"}}>{invoice.invoice.invoiceNumber}</small></div>
-                                    <div className="col-sm-4"><small style={{textTransform:"capitalize"}}>{invoice.invoice.invoiceDate}</small></div>
-                                    <div className="col-sm-4"></div>
-                                </div>
-                                <div className="justify-content-between d-flex details">
-                                    <small>{invoice.invoice.product.productName}</small>
-                                </div>
-                                <div className="row justify-content-between d-flex details">
-                                    <div className="col-sm-4"><small>x{invoice.invoice.qty}</small></div>
-                                    <div className="col-sm-4"><small style={{textTransform:"capitalize"}}>Total</small></div>
-                                    <div className="col-sm-4"></div>
-                                </div>
-                                <div className="row justify-content-between d-flex details">
-                                    <div className="col-sm-4"></div>
-                                    <div className="col-sm-4"><small>Rp {invoice.invoice.product.price}</small></div>
-                                    <div className="col-sm-4"><span onClick={() => this.transactionDetail(invoice.invoice.invoiceNumber)} style={{cursor:"pointer", float:"right"}}><i className="far fa-eye"></i> Click to detail</span></div>
-                                </div>
-                            </aside>
-                        ))}                      
-                        </div>
-                        </div>
+                    </section>
+                    <Footer />
                     </div>
-                    </div>
-                </div>
-                </section>
-                <Footer />
+                )}
+                
                 <Modal
                 parentSelector={() => document.querySelector('#root')}
                 overlayRef={node => (this.overlayRef = node)}
@@ -238,32 +245,32 @@ class Transaction_History extends Component {
                     <div className="blog_right_sidebar">
                         <aside className="single_sidebar_widget popular_post_widget middle" style={{background: "#fff"}}>
                             <div className="justify-content-between d-flex details">
-                                <small>Invoice Date</small>
+                                <span>Invoice Date</span>
                             </div>  
                             <div className="justify-content-between d-flex details">
                                 <span>{this.state.invoiceDate}</span>
-                                <span className="badge badge-success" style={{textTransform:"capitalize"}}>{this.state.status} </span>
+                                <span className="badge badge-success" style={{textTransform:"capitalize"}}>{this.state.description} </span>
                             </div>
                             <div className="media post_item">
                                 <img style={{maxWidth:"25%"}} src={this.state.productImage} alt="" />
                                 <div className="media-body">
                                     <div className="justify-content-between d-flex details">
-                                        <small>Product Name</small>
+                                        <span>Product Name</span>
                                     </div>
                                     <div className="justify-content-between d-flex details mb-1">
                                         <span style={{maxWidth: "50%"}}>{this.state.productName}</span>
                                     </div>
                                     <div className="justify-content-between d-flex details mb-1">
-                                        <small>Qty </small>
-                                        <small>{this.state.qty} </small>
+                                        <span>Qty </span>
+                                        <span>{this.state.qty} </span>
                                     </div>
                                     <div className="justify-content-between d-flex details mb-1">
-                                        <small>Price </small>
-                                        <small style={{fontWeight:"bold"}}>Rp {this.state.price}</small>
+                                        <span>Price </span>
+                                        <span style={{fontWeight:"bold"}}>Rp {this.state.price}</span>
                                     </div>
                                     <div className="justify-content-between d-flex details">
-                                        <small>No. Invoice</small>
-                                        <small style={{fontWeight:"bold"}}>{this.state.invoiceNumber}</small>
+                                        <span>No. Invoice</span>
+                                        <span style={{fontWeight:"bold"}}>{this.state.invoiceNumber}</span>
                                     </div>
                                 </div>
                             </div>
@@ -271,47 +278,47 @@ class Transaction_History extends Component {
                         <aside className="single_sidebar_widget popular_post_widget middle" style={{background: "#fff"}}>
                             <div className="media-body">
                                 <div className="justify-content-between d-flex details">
-                                    <small>SubTotal</small>
-                                    <small>Rp {this.state.price}</small>
+                                    <span>SubTotal</span>
+                                    <span>Rp {this.state.price}</span>
                                 </div>
                                 <div className="justify-content-between d-flex details">
-                                    <small>Admin Fee ({this.state.adminFee})</small>
-                                    <small>Rp {this.state.adminPrice}</small>
+                                    <span>Admin Fee ({this.state.adminFee})</span>
+                                    <span>Rp {this.state.adminPrice}</span>
                                 </div>
                             </div>
                             <div className="widget_title"> </div>
                             <div className="media-body">
                                 <div className="justify-content-between d-flex details">
-                                    <small style = {{fontWeight: "bold"}} >Price Total</small>
-                                    <small style = {{fontWeight: "bold"}} >Rp {this.state.amount}</small>
+                                    <span style = {{fontWeight: "bold"}} >Price Total</span>
+                                    <span style = {{fontWeight: "bold"}} >Rp {this.state.amount}</span>
                                 </div>
                             </div>
                             <br/>
                             <div className="media-body">
                                 <div className="justify-content-between d-flex details mb-2">
-                                    <small style = {{fontWeight: "bold"}} >Payment</small>
+                                    <span style = {{fontWeight: "bold"}} >Payment</span>
                                 </div>
                             </div>
                             <div className="media-body">
                             <div className="justify-content-between d-flex details">
-                                    <small>Transaction Date</small>
-                                    <small>{this.state.transactionDate}</small>
+                                    <span>Transaction Date</span>
+                                    <span>{this.state.transactionDate}</span>
                                 </div>
                                 <div className="justify-content-between d-flex details">
-                                    <small>Transaction ID</small>
-                                    <small>{this.state.transactionId}</small>
+                                    <span>Transaction ID</span>
+                                    <span>{this.state.transactionId}</span>
                                 </div>
                                 <div className="justify-content-between d-flex details">
-                                    <small>Price Total</small>
-                                    <small>Rp {this.state.amount}</small>
+                                    <span>Price Total</span>
+                                    <span>Rp {this.state.amount}</span>
                                 </div>
                                 <div className="justify-content-between d-flex details">
-                                    <small>Payment Total</small>
-                                    <small>Rp {this.state.amount}</small>
+                                    <span>Payment Total</span>
+                                    <span>Rp {this.state.amount}</span>
                                 </div>
                                 <div className="justify-content-between d-flex details">
-                                    <small>Payment Method</small>
-                                    <small>QRIS (QR Payment)</small>
+                                    <span>Payment Method</span>
+                                    <span>QRIS (QR Payment)</span>
                                 </div>
                             </div>
                             <div className="media-body">

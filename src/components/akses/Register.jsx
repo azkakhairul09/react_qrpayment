@@ -3,6 +3,7 @@ import "./Register.css";
 import { Link } from 'react-router-dom';
 import axios from "axios";
 import Qs from "query-string";
+import { toast } from 'react-toastify';
 
 class Register extends Component {
     constructor() {
@@ -19,7 +20,8 @@ class Register extends Component {
             city: "",
             subDistrict: "",
             village: "",
-            postalCode: ""
+            postalCode: "",
+            isLoading: false
         };
 
         this.onChange = this.onChange.bind(this);
@@ -32,13 +34,18 @@ class Register extends Component {
 
     onSubmit(e) {
         e.preventDefault();
+
+        this.setState({
+            isLoading: true
+        })
+
         const headers = {
             "Accept": "application/json",
             "Content-Type": "application/json",
         };
 
         const roleParameter = {
-            roleId: "RL-78"
+            roleId: "RL-71"
         };
 
         // const urlRegistration =
@@ -64,13 +71,23 @@ class Register extends Component {
 
         axios.post(urlRegistration+Qs.stringify(roleParameter), registration, headers)
         .then((response) => {
-            let res = response.data;
-            // alert("you are registered now!");
-            console.log(res);
-            // this.history.push("/login");
+            toast.info('registered ', 
+            {
+              position: toast.POSITION.TOP_CENTER,
+              hideProgressBar: true,
+              className: "custom-toast",
+              autoClose: 1000,
+            })
+            this.setState({
+                isLoading: false
+            })
+            this.props.history.push("/login");
         })
         .catch((error) => {
-          console.log(error.response.data);
+            console.log(error.response.data);
+            this.setState({
+                isLoading: false
+            })
         });
     }
 
@@ -184,7 +201,7 @@ class Register extends Component {
                                         <span onClick={hideAddress} className="before"><i className="far fa-arrow-alt-circle-left"></i>Before</span>
                                         </div>
                                         <div className="col-md-6">
-                                        <input type="submit" name="register" className="register text-uppercase" defaultValue="REGISTER" />
+                                        <button disabled={this.state.isLoading} type="submit" name="register" className="register text-uppercase" defaultValue="REGISTER" />
                                         </div>
                                     </div>                                    
                                 </div>

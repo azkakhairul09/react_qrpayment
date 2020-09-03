@@ -756,6 +756,9 @@
             font-size: 13px;
             padding: 9px 24px;
         }
+        h5 {
+            font-size: small !important;
+        }
     }
     /* line 133, E:/172 Etrain Education/172_Etrain_Education_html/sass/_button.scss */
     

@@ -57,8 +57,8 @@ class Someproducts extends Component {
         }
 
         if (!this.state.someproducts) {
-            return  <div style={{margin:"auto"}}>
-                        <h3>product data is empty</h3>
+            return  <div style={{textAlign: "center"}}>
+                        <img src={require('../dist/img/main_loader.gif')} alt="loader"/>
                     </div>
         }
         return (

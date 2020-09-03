@@ -49,7 +49,9 @@ class Products extends Component {
         }
 
         if (!this.state.products) {
-            return <div>didn't get products</div>
+            return  <div style={{textAlign: "center"}}>
+                        <img src={require('../dist/img/main_loader.gif')} alt="loader"/>
+                    </div>
         }
         return (
             <div>
@@ -80,7 +82,7 @@ class Products extends Component {
                                             <div className="author_img">
                                             <div className="author_info_text">
                                             <p>Created by:</p>
-                                            <small><Link to="#">{product.createdBy}</Link></small>
+                                            <h5><Link to="#">{product.createdBy}</Link></h5>
                                             </div>
                                             </div>
                                         </div>

@@ -49,7 +49,7 @@ class Detail_History extends Component {
                             </div>  
                             <div className="justify-content-between d-flex details">
                                 <span>{this.props.invoiceDate}</span>
-                                <span className="badge badge-success" style={{textTransform:"capitalize"}}>{this.props.status} </span>
+                                <span className="badge badge-success" style={{textTransform:"capitalize"}}>{this.props.description} </span>
                             </div>
                             <div className="media post_item">
                                 <img style={{maxWidth:"25%"}} src={this.props.productImage} alt="" />

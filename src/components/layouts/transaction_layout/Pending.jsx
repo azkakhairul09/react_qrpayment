@@ -36,8 +36,8 @@ class Pending extends Component {
                         <Link className="navbar-brand" to=""> <img src={require("../dist/img/logo.png")} alt="logo" /> </Link>
                     </nav>
                     <div className="justify-content-between d-flex" style={{background: "#cacaca"}}>
-                        <small>INVOICE </small>
-                        <small>{this.props.invoiceNumber}</small>
+                        <span>INVOICE </span>
+                        <span>{this.props.invoiceNumber}</span>
                     </div>
                     <div className="blog_right_sidebar">
                         <aside className="single_sidebar_widget popular_post_widget middle" style={{background: "#fff"}}>
@@ -52,11 +52,11 @@ class Pending extends Component {
                                 <div className="media-body">
                                     <h3 style={{textTransform: "capitalize"}}>{this.props.categorize}</h3>
                                     <div className="justify-content-between d-flex details">
-                                        <small style={{maxWidth: "50%"}}>{this.props.productName}</small>
+                                        <span style={{maxWidth: "50%"}}>{this.props.productName}</span>
                                     </div>
                                     <div className="justify-content-between d-flex details">
-                                        <small>Qty : {this.props.qty} </small>
-                                        <small>Rp {this.props.price}</small>
+                                        <span>Qty : {this.props.qty} </span>
+                                        <span>Rp {this.props.price}</span>
                                     </div>
                                 </div>
                             </div>
@@ -64,27 +64,27 @@ class Pending extends Component {
                         <aside className="single_sidebar_widget popular_post_widget middle" style={{background: "#fff"}}>
                             <div className="media-body">
                                 <div className="justify-content-between d-flex details">
-                                    <small>SubTotal</small>
-                                    <small>Rp {this.props.price}</small>
+                                    <span>SubTotal</span>
+                                    <span>Rp {this.props.price}</span>
                                 </div>
                                 <div className="justify-content-between d-flex details">
-                                    <small>Admin Fee ({this.props.adminFee})</small>
-                                    <small>Rp {this.props.admin}</small>
+                                    <span>Admin Fee ({this.props.adminFee})</span>
+                                    <span>Rp {this.props.admin}</span>
                                 </div>
                             </div>
                             <div className="widget_title"> </div>
                             <div className="media-body">
                                 <div className="justify-content-between d-flex details">
-                                    <small style = {{fontWeight: "bold"}} >Total Harga</small>
-                                    <small style = {{fontWeight: "bold"}} >Rp {this.props.invoiceNominal}</small>
+                                    <span style = {{fontWeight: "bold"}} >Total Harga</span>
+                                    <span style = {{fontWeight: "bold"}} >Rp {this.props.invoiceNominal}</span>
                                 </div>
                             </div>
                         </aside>
                         <aside className="single_sidebar_widget popular_post_widget" style={{background: "#fff"}}>
                             <div className="media-body">
                                 <div className="justify-content-between d-flex details">
-                                    <small>Payment Method</small>
-                                    <small>QRIS (QR Payment)</small>
+                                    <span>Payment Method</span>
+                                    <span>QRIS (QR Payment)</span>
                                 </div>
                                 <div className="pending load_more mb-2 mt-5">
                                     <div className="btn_4" onClick={() => this.showQr(this.props.content)}>Show QR</div>
