@@ -8,7 +8,8 @@ export default class Header extends Component {
         super()
 
         this.state = {
-            isLogin: false
+            isLogin: false,
+            isAdmin: false
         }
     }
 
@@ -25,6 +26,14 @@ export default class Header extends Component {
     componentDidMount(){
         this.getData();
         if (localStorage.getItem('userData')) {
+            const userData = localStorage.getItem('userData');
+            let decoded = JSON.parse(userData);
+            if (decoded.role === "Administrator") 
+            {
+                this.setState({
+                    isAdmin: true
+                })  
+            }
             this.setState({
                 isLogin: true
             })
@@ -58,7 +67,7 @@ export default class Header extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to="/products">Products</Link>
                             </li>
-                            {this.state.isLogin ? (
+                            {this.state.isLogin && !this.state.isAdmin ? (
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/history">History</Link>
                                 </li>

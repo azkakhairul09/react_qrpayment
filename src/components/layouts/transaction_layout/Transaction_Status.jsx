@@ -52,7 +52,6 @@ class Transaction_Status extends Component {
             })
             .then((response) => {
                 let res = response.data.content;
-                console.log(res);
 
                 var amount = res.invoiceNominal;
                 var reverse = amount.toString().split('').reverse().join(''),
@@ -99,7 +98,6 @@ class Transaction_Status extends Component {
                 } 
             })
             .catch((error) => {
-                console.log(error.response.data);
             });
         } else {
             toast.info('please login to continue', 
@@ -107,7 +105,7 @@ class Transaction_Status extends Component {
                 position: toast.POSITION.TOP_CENTER,
                 hideProgressBar: true,
                 className: "custom-toast",
-                autoClose: 1000,
+                autoClose: 2000,
             })
             this.props.history.push("/login")
         }

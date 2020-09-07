@@ -35,7 +35,6 @@ class Product_Detail extends Component {
         })
         .then((response) => {
             let res = response.data.content;
-            console.log(res);
 
             var nominal = res.price;
             var reverse = nominal.toString().split('').reverse().join(''),
@@ -69,7 +68,6 @@ class Product_Detail extends Component {
             })      
         })
         .catch((error) => {
-          console.log(error.response.data);
         });
     }
     checkout = () => {

@@ -24,7 +24,7 @@ class Navbar extends Component {
               position: toast.POSITION.TOP_CENTER,
               hideProgressBar: true,
               className: "custom-toast",
-              autoClose: 1000,
+              autoClose: 2000,
             })
         this.setState({
             redirect: true

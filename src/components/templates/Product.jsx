@@ -33,7 +33,6 @@ class Product extends Component {
         })
         .then((response) => {
             let res = response.data;
-            console.log(res);
             this.setState ({
                 products: response.data.content,
                 loading: false
@@ -46,7 +45,6 @@ class Product extends Component {
             document.body.appendChild(script);            
         })
         .catch((error) => {
-            console.log(error.response.data);
             if (!error.response.data) {
                 this.setState({
                     redirect: true
@@ -74,7 +72,6 @@ class Product extends Component {
             }
         })
         .then((response) => {
-            console.log(response.data)
             this.setState ({
                 loading: false
             })
@@ -83,17 +80,16 @@ class Product extends Component {
                 position: toast.POSITION.TOP_CENTER,
                 hideProgressBar: true,
                 className: "custom-toast",
-                autoClose: 1500,
+                autoClose: 2000,
             })
             setTimeout(
                 function() {
                     window.location.reload(false);
                 },
-                1500
+                500
             );
         })
         .catch((error) => {
-            console.log(error.response.data);
             this.setState ({
                 loading: true
             })

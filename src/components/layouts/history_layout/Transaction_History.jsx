@@ -46,20 +46,18 @@ class Transaction_History extends Component {
             })
             .then((response) => {
                 let res = response.data.content
-                console.log(res);
                 this.setState ({
                     invoices: res
                 })   
             })
             .catch((error) => {
-                console.log(error.response.data);
                 if (error.response.status === 403) {
                     toast.info('access expired, please login again', 
                     {
                         position: toast.POSITION.TOP_CENTER,
                         hideProgressBar: true,
                         className: "custom-toast",
-                        autoClose: 1000,
+                        autoClose: 2000,
                     })
                     this.setState({
                         isLoggedin: false
@@ -71,7 +69,8 @@ class Transaction_History extends Component {
             {
                 position: toast.POSITION.TOP_CENTER,
                 hideProgressBar: true,
-                className: "custom-toast"
+                className: "custom-toast",
+                autoClose: 2000,
             })
             this.props.history.push("/login")
         }
@@ -94,7 +93,6 @@ class Transaction_History extends Component {
         })
         .then((response) => {
             let res = response.data.content
-            console.log(res);
             var amount = res.amount;
             var reverse = amount.toString().split('').reverse().join(''),
             amount_format = reverse.match(/\d{1,3}/g);
@@ -112,8 +110,6 @@ class Transaction_History extends Component {
 
             var str = res.transactionDate;
             var my = str.split(".").slice(0, -1).join(" ");
-
-            console.log(my);
 
             this.setState ({
                 amount: amount_format,
@@ -135,13 +131,13 @@ class Transaction_History extends Component {
             })   
         })
         .catch((error) => {
-            console.log(error.response.data);
             if (error.response.status === 403) {
                 toast.info('access expired, please login again', 
                 {
                     position: toast.POSITION.TOP_CENTER,
                     hideProgressBar: true,
-                    className: "custom-toast"
+                    className: "custom-toast",
+                    autoClose: 2000,
                 })
                 this.setState({
                     isLoggedin: false
@@ -162,13 +158,14 @@ class Transaction_History extends Component {
 
     customStyles = {
         content : {
-          top                   : '55%',
-          left                  : '50%',
-          right                 : 'auto',
-          bottom                : 'auto',
-          marginRight           : '-50%',
-          transform             : 'translate(-50%, -50%)',
-          border                : '0',
+            top                   : '55%',
+            left                  : '50%',
+            right                 : 'auto',
+            bottom                : 'auto',
+            marginRight           : '-50%',
+            transform             : 'translate(-50%, -50%)',
+            border                : '0',
+            overFlow              : 'scroll'
         }
       };
     render() {

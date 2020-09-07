@@ -28,83 +28,46 @@ class Sidebar extends Component {
                     {/* Sidebar Menu */}
                     <nav className="mt-2">
                         <ul
-                        className="nav nav-pills nav-sidebar flex-column"
+                        className="nav nav-pills nav-sidebar flex-column mb-5"
                         data-widget="treeview"
                         role="menu"
                         data-accordion="false"
                         >
                         {/* Add icons to the links using the .nav-icon className
                                     with font-awesome or any other icon font library */}
-                        <li className="nav-item">
-                            <Link to="/dashboard" className="nav-link">
-                            <i className="nav-icon fas fa-tachometer-alt" />
-                            <p style={{color:"#fff"}}>Dashboard</p>
-                            </Link>
-                        </li>
-                        {/* {
-                            true && (
                             <li className="nav-item">
-                                <Link to="/profile" className="nav-link">
-                                <i className="nav-icon fas fa-user" />
-                                <p>Profile</p>
+                                <Link to="/dashboard" className="nav-link">
+                                <i className="nav-icon fas fa-tachometer-alt" />
+                                <p style={{color:"#fff"}}>Dashboard</p>
                                 </Link>
                             </li>
 
-                            )
-                        } */}
-                        <li className="nav-header">ADMINISTRATOR</li>
-                        {/* <li className="nav-item">
-                            <Link to="member" className="nav-link">
-                            <i className="far fa-circle nav-icon"></i>
-                            <p>Member List</p>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="agenda" className="nav-link">
-                            <i className="far fa-circle nav-icon"></i>
-                            <p>Agenda</p>
-                            </Link>
-                        </li> */}
-                        <li className="nav-item">
-                            <Link to="product" className="nav-link">
-                            <i className="far fa-circle nav-icon"></i>
-                            <p style={{color:"#fff"}}>Product</p>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="transactions" className="nav-link">
-                            <i className="far fa-circle nav-icon"></i>
-                            <p style={{color:"#fff"}}>Transaction</p>
-                            </Link>
-                        </li>
-                        {/* <li className="nav-header">MEMBER</li>
-                        <li className="nav-item">
-                            <Link to="user_agenda" className="nav-link">
-                            <i className="far fa-circle nav-icon"></i>
-                            <p>Agenda</p>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="products" className="nav-link">
-                            <i className="far fa-circle nav-icon"></i>
-                            <p>Product</p>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="order_history" className="nav-link">
-                            <i className="far fa-circle nav-icon"></i>
-                            <p>Order History</p>
-                            </Link>
-                        </li> */}
-                        {/* <li classآشةث="nav-header">
-                            <button
-                            className="btn btn-primary"
-                            type="button"
-                            id="closeSidebar"
-                            >
-                            <i className="fas fa-bars" />
-                            </button>
-                        </li> */}
+                            <li className="nav-header">ADMINISTRATOR</li>
+                            
+                            <li className="nav-item">
+                                <Link to="product" className="nav-link">
+                                <i className="far fa-circle nav-icon"></i>
+                                <p style={{color:"#fff"}}>Product</p>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="transactions" className="nav-link">
+                                <i className="far fa-circle nav-icon"></i>
+                                <p style={{color:"#fff"}}>Transaction</p>
+                                </Link>
+                            </li>
+                        </ul>
+                        <ul
+                        className="nav nav-pills nav-sidebar flex-column"
+                        data-widget="treeview"
+                        role="menu"
+                        data-accordion="false"
+                        >
+                            <li className="btn btn-link" style={{textAlign: "left"}}>
+                                <Link to="/payaja" className="">
+                                    <p style={{color:"#fff"}}>Go to home page</p>
+                                </Link>
+                            </li>
                         </ul>
                     </nav>
                     {/* /.sidebar-menu */}

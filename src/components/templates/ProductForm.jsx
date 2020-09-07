@@ -57,7 +57,6 @@ class ProductForm extends Component {
         })
         .then((response) => {
             let res = response.data;
-            console.log(res);
             this.setState({
                 redirect: true
             })
@@ -66,11 +65,10 @@ class ProductForm extends Component {
               position: toast.POSITION.TOP_CENTER,
               hideProgressBar: true,
               className: "custom-toast",
-              autoClose: 1000,
+              autoClose: 2000,
             })
         })
         .catch((error) => {
-          console.log(error.response.data);
         });
     }
     renderRedirect = () => {

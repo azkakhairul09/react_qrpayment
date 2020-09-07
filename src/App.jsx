@@ -85,7 +85,6 @@ class Login extends Component {
       Axios.post(url, data, headers)
       .then((response) => {
           let res = response.data;
-          console.log(res.role)
           localStorage.setItem('userData', JSON.stringify(res))
           if (res.role === "Administrator") {
             fakeAuth.authenticate(() => {
@@ -98,7 +97,7 @@ class Login extends Component {
               position: toast.POSITION.TOP_CENTER,
               hideProgressBar: true,
               className: "custom-toast",
-              autoClose: 1000,
+              autoClose: 2000,
             })
             this.props.history.push("/dashboard");
           } else {
@@ -112,19 +111,18 @@ class Login extends Component {
               position: toast.POSITION.TOP_CENTER,
               hideProgressBar: true,
               className: "custom-toast",
-              autoClose: 1000,
+              autoClose: 2000,
             })
             this.props.history.push("/payaja");
           }
       })
       .catch((error) => {
-        console.log(error.response.data);
         toast.info("username or password is not valid.", 
           {
             position: toast.POSITION.TOP_CENTER,
             hideProgressBar: true,
             className: "custom-toast",
-            autoClose: 1000,
+            autoClose: 2000,
           })
       });
   }
@@ -181,7 +179,7 @@ class Logout extends Component {
               position: toast.POSITION.TOP_CENTER,
               hideProgressBar: true,
               className: "custom-toast",
-              autoClose: 1000,
+              autoClose: 2000,
             })
       window.location.reload(false);
       fakeAuth.logout(() => {
@@ -228,7 +226,7 @@ class App extends Component {
               <Route path="/" exact component={Main_Layout} />
               <Route path="/payaja" exact component={Main_Layout} />
               <Route path="/products" exact component={Products_Layout} />
-              <Route path="/products/detail" exact component={Products_Detail} />
+              <Route path="/detail_product" exact component={Products_Detail} />
               <PrivateRoute path="/transactionstatus" exact component={Transaction_Status} />
               <PrivateRoute path="/history" exact component={Transaction_History} />
               <PrivateRoute path="/transactions/detail" exact component={Detail_History} />

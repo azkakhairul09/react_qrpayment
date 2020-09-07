@@ -25,6 +25,10 @@
     /**************** common css start ****************/
     /* line 3, E:/172 Etrain Education/172_Etrain_Education_html/sass/_common.scss */
     
+    html {
+        height: 100% !important;
+    }
+    
     body {
         font-family: "Roboto", sans-serif;
         padding: 0;
@@ -7429,6 +7433,7 @@
     
     .ReactModal__Overlay--after-open {
         opacity: 1;
+        overflow: scroll;
     }
     
     .ReactModal__Overlay--before-close {

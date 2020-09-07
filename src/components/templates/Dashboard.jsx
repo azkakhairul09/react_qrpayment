@@ -39,6 +39,7 @@ class Dashboard extends Component {
                                   thousandSeparator={true}
                                 /> : <Skeleton width={60}/>} */}
                                 <small> IDR</small>
+                                <span>1.000.000</span>
                               </span>
                             </div>
                             {/* /.info-box-content */}
@@ -62,6 +63,7 @@ class Dashboard extends Component {
                                   thousandSeparator={true}
                                 /> : <Skeleton width={60}/>} */}
                                 <small> IDR</small>
+                                <span>1.000.000</span>
                               </span>
                             </div>
                             {/* /.info-box-content */}
@@ -85,6 +87,7 @@ class Dashboard extends Component {
                                   thousandSeparator={true}
                                 /> : <Skeleton width={60}/>} */}
                                 <small> IDR</small>
+                                <span>1.000.000</span>
                               </span>
                             </div>
                             {/* /.info-box-content */}
@@ -106,6 +109,7 @@ class Dashboard extends Component {
                                   thousandSeparator={true}
                                 /> : <Skeleton width={60}/>} */}
                                 <small> IDR</small>
+                                <span>1.000.000</span>
                               </span>
                             </div>
                             {/* /.info-box-content */}
@@ -125,6 +129,7 @@ class Dashboard extends Component {
                             <div className="info-box-content">
                               <span className="info-box-text">Transaction Success</span>
                               <span className="info-box-number">
+                                <span>1.000.000</span>
                                   {/* {total.transaction || <Skeleton width={60}/>} */}
                               </span>
                             </div>
@@ -143,6 +148,7 @@ class Dashboard extends Component {
                             <div className="info-box-content">
                               <span className="info-box-text">Withdrawl Success</span>
                               <span className="info-box-number">
+                                <span>1.000.000</span>
                                 {/* {total.transaction_fee || <Skeleton width={60}/>} */}
                               </span>
                             </div>
@@ -165,6 +171,7 @@ class Dashboard extends Component {
                                   thousandSeparator={true}
                                 /> : <Skeleton width={60}/>} */}
                                 <small> IDR</small>
+                                <span>1.000.000</span>
                               </span>
                             </div>
                             {/* /.info-box-content */}
@@ -186,6 +193,7 @@ class Dashboard extends Component {
                                   thousandSeparator={true}
                                 /> : <Skeleton width={60}/> } */}
                                 <small> IDR</small>
+                                <span>1.000.000</span>
                               </span>
                             </div>
                             {/* /.info-box-content */}

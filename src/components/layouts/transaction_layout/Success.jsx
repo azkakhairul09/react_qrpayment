@@ -37,7 +37,6 @@ class Success extends Component {
         })
         .then((response) => {
             let res = response.data.content;
-            console.log(res);
             var angka = res.amount;
             var reverse = angka.toString().split('').reverse().join(''),
             ribuan = reverse.match(/\d{1,3}/g);
@@ -55,7 +54,6 @@ class Success extends Component {
             })      
         })
         .catch((error) => {
-          console.log(error.response.data);
         });
     }
     render() {

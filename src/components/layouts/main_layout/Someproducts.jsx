@@ -3,18 +3,11 @@ import Axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 
 class Someproducts extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            fetchSuccess: false
-        }
-    }
-
     state = {
         loading: true,
         someproducts: [],
-        redirect: false
+        redirect: false,
+        error: false
     }
 
     componentDidMount() {
@@ -26,17 +19,17 @@ class Someproducts extends Component {
             }
         })
         .then((response) => {
-            let res = response.data;
-            console.log(res);
             this.setState ({
                 someproducts: response.data.content,
-                loading: false,
-                fetchSuccess: true
+                loading: false
             })      
         })
         .catch((error) => {
-          console.log(error.response.data);
-          console.log("heboh ",error.response.status);
+            console.log(error)
+          this.setState({
+              loading: false,
+              error: true
+          })
         });
     }
     detail = (productId) => {
@@ -48,19 +41,52 @@ class Someproducts extends Component {
 
     renderRedirect = () => {
         if (this.state.redirect) {
-          return <Redirect to='/products/detail' />
+          return <Redirect to='/detail_product' />
         }
+    }
+
+    refresh = () => {
+        window.location.reload(false)
     }
     render() {
         if (this.state.loading) {
-            return <div>Loading ...</div>
+            return <section className="special_cource" name="products" id="products">
+                        <div className="container">
+                            <div className="row justify-content-center">
+                                <div className="col-xl-5">
+                                    <div className="section_tittle text-center">
+                                        <p className="wow fadeIn">Products</p>
+                                        <h2 className="wow fadeIn">Newest Products</h2> 
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row mb-5 justify-content-center">
+                                <div style={{textAlign:"center"}}>
+                                    <img src={require('../../img/loader.gif')} alt="loader"/>
+                                </div>
+                            </div>
+                        </div>
+                    </section>  
         }
 
-        if (!this.state.someproducts) {
-            return  <div style={{textAlign: "center"}}>
-                        <img src={require('../dist/img/main_loader.gif')} alt="loader"/>
-                    </div>
+        if (this.state.error) {
+            return  <section className="special_cource" name="products" id="products">
+                        <div className="container">
+                            <div className="row justify-content-center">
+                                <div style={{textAlign:"center"}}>
+                                    <img src={require('../../img/confuse.jpg')} alt="confuse"/>
+                                    <h5>Sorry! Something went wrong...</h5>
+                                    <div className="btn_4 mb-1" onClick={(this.refresh)}>Try Again</div>
+                                    <div>
+                                        <span>If that doesn't work, contact me!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>        
         }
+
+        // {this.refresh}
         return (
             <div>
                 {/*::review_part start::*/}
@@ -69,13 +95,13 @@ class Someproducts extends Component {
                     <div className="row justify-content-center">
                         <div className="col-xl-5">
                             <div className="section_tittle text-center">
-                                <p className="wow fadeIn">popular courses</p>
-                                <h2 className="wow fadeIn">Special Courses</h2>
+                                <p className="wow fadeIn">Products</p>
+                                <h2 className="wow fadeIn">Newest Products</h2>
                             </div>
                         </div>
                     </div>
                     
-                    <div className="row mb-5">
+                    <div className="row mb-5 justify-content-center">
                         {this.state.someproducts.map((product, i) => (
                             <div className="col-sm-6 col-lg-4 wow slideInUp" key={i}>
                                 <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>

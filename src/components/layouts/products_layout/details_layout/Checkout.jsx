@@ -40,7 +40,6 @@ class Checkout extends Component {
                 })
                 .then((response) => {
                     let res = response.data.content
-                    console.log(res);
 
                     var nominal = res.invoiceNominal;
                     var reverse = nominal.toString().split('').reverse().join(''),
@@ -60,14 +59,13 @@ class Checkout extends Component {
                     });
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
                     if (error.response.status === 403) {
                         toast.info('access expired, please login again', 
                         {
                             position: toast.POSITION.TOP_CENTER,
                             hideProgressBar: true,
                             className: "custom-toast",
-                            autoClose: 1000,
+                            autoClose: 2000,
                         })
                         this.setState({
                             isLoggedin: false
@@ -79,6 +77,7 @@ class Checkout extends Component {
                 {
                     position: toast.POSITION.TOP_CENTER,
                     hideProgressBar: true,
+                    autoClose: 2000,
                     className: "custom-toast"
                 })
                 this.setState({

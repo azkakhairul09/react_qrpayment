@@ -26,7 +26,7 @@ export default class Logout extends Component {
             {
               position: toast.POSITION.TOP_CENTER,
               hideProgressBar: true,
-              autoClose: 1000,
+              autoClose: 2000,
               className: "custom-toast"
             })
     }
