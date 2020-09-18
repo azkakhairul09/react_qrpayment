@@ -93,6 +93,17 @@ class Product extends Component {
             this.setState ({
                 loading: true
             })
+            if (error.response.status === 403) {
+                toast.info('access expired, please login again', 
+                {
+                    position: toast.POSITION.TOP_CENTER,
+                    hideProgressBar: true,
+                    className: "custom-toast",
+                    autoClose: 2000,
+                })
+                localStorage.clear()
+                this.props.history.push("/login")
+            }
         });
     }
     render() {
@@ -104,8 +115,14 @@ class Product extends Component {
         }
 
         if (this.state.redirect) {
-            alert("oops, your session was expired")
-            this.props.history.push('payaja')
+            toast.info('oops, your session was expired', 
+            {
+                position: toast.POSITION.TOP_CENTER,
+                hideProgressBar: true,
+                className: "custom-toast",
+                autoClose: 2000,
+            })
+            this.props.history.push('/login')
         }
         return (
             <div>

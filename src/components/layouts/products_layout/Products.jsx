@@ -1,6 +1,40 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import Slider from "react-slick";
+
+function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block" }}
+        onClick={onClick}
+      />
+    );
+  }
+  
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "block" }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function SampleNoneArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, display: "none" }}
+        onClick={onClick}
+      />
+    );
+  }
 
 class Products extends Component {
     state = {
@@ -84,6 +118,52 @@ class Products extends Component {
                         </div>
                     </section>
         }
+
+        var settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  speed: 500,
+                  dots: true,
+                  nextArrow: <SampleNextArrow />,
+                  prevArrow: <SamplePrevArrow />,
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  speed: 500,
+                  dots: true,
+                  nextArrow: <SampleNextArrow />,
+                  prevArrow: <SamplePrevArrow />,
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  speed: 500,
+                  dots: true,
+                  nextArrow: <SampleNoneArrow />,
+                  prevArrow: <SampleNoneArrow />,
+                }
+              }
+            ]
+          };
         return (
             <div>
                 {/*::review_part start::*/}
@@ -96,32 +176,27 @@ class Products extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="row justify-content-center">
+                        <Slider {...settings}>
+                        {/* <div className="row justify-content-center"> */}
                             {this.state.products.map((product, i) => (
-                            <div className="wow slideInUp col-sm-4 col-lg-3 mb-5" key={i}>
-                                <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
+                            <div className="wow slideInUp" key={i}>
+                            <div className="single_special_cource" style={{border: "1px solid #edeff2", padding: "2.5px"}}>
                                 <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
-                                    <div className="special_cource_text">
-                                        {this.renderRedirect()}
-                                        <div className="btn_4" onClick={() => this.detail(product.productId)}>DETAIL</div>
-                                        <h4>Rp {product.price}</h4>
-                                        {/* <a href="course-details.html">
-                                        <h3 style={{textTransform: "capitalize"}}>{product.productName}</h3>
-                                        </a> */}
-                                        <p>{product.productName}</p>
-                                        <div className="author_info">
-                                            <div className="author_img">
-                                            <div className="author_info_text">
-                                            <p>Created by:</p>
-                                            <h5><Link to="#">{product.createdBy}</Link></h5>
-                                            </div>
-                                            </div>
-                                        </div>
+                                <div className="special_cource_text mt-3">
+                                    {this.renderRedirect()}
+                                    <div className="btn_4" style={{fontSize: "12px"}} onClick={() => this.detail(product.productId)}>DETAIL</div>
+                                    <div className="justify-content-between d-flex details mt-3" style={{color:"#888"}}>
+                                        <small>Price</small>
+                                        <small>Rp {product.price}</small>
                                     </div>
+                                    <p style={{color:"#212529"}}>{product.productName}</p>
+                                    <span style={{fontSize: "12px", fontWeight: "bold"}}>{product.categorize}</span>
                                 </div>
                             </div>
+                            </div>
                             ))}
-                        </div>
+                                        {/* </div> */}
+                        </Slider>
                     </div>
                 </section>
                 {/*::blog_part end::*/}

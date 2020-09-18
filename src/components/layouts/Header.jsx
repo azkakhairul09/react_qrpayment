@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Logout from "./LogoutButton"
 import Login from './LoginButton'
+import $ from "jquery";
 
 export default class Header extends Component {
     constructor() {
@@ -41,6 +42,13 @@ export default class Header extends Component {
     }
 
     render() {
+        $(document).ready(function () {
+            var location = window.location.pathname;
+            // console.log(location)
+            $('ul.navbar-nav .nav-item a[href="' + location + '"]')
+              .addClass("active");
+        });
+
         const script = document.createElement("script");
 
         script.src = "js/fixed_menu.js";
@@ -55,7 +63,7 @@ export default class Header extends Component {
                     <div className="row align-items-center">
                     <div className="col-lg-12">
                         <nav className="navbar navbar-expand-lg navbar-light">
-                        <Link className="navbar-brand" to=""> <img src={require("./dist/img/logo.png")} alt="logo" /> </Link>
+                        <Link className="navbar-brand" to=""> <img src={require("./dist/img/company-logo.png")} style={{maxWidth: "40%"}} alt="logo" /> </Link>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon" />
                         </button>
@@ -70,6 +78,13 @@ export default class Header extends Component {
                             {this.state.isLogin && !this.state.isAdmin ? (
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/history">History</Link>
+                                </li>
+                            ) : (
+                                ""
+                            )}
+                            {this.state.isLogin && this.state.isAdmin ? (
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/dashboard">Dashboard</Link>
                                 </li>
                             ) : (
                                 ""

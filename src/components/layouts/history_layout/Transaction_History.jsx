@@ -5,6 +5,8 @@ import Axios from 'axios';
 import Qs from 'query-string'
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import Banner from './Banner';
 
 class Transaction_History extends Component {
     state = {
@@ -25,7 +27,8 @@ class Transaction_History extends Component {
         adminPrice: "",
         productImage: "",
         productName: "",
-        price: ""
+        price: "",
+        isLoading: true
     }
 
     componentDidMount() {
@@ -47,7 +50,8 @@ class Transaction_History extends Component {
             .then((response) => {
                 let res = response.data.content
                 this.setState ({
-                    invoices: res
+                    invoices: res,
+                    isLoading: false
                 })   
             })
             .catch((error) => {
@@ -62,6 +66,8 @@ class Transaction_History extends Component {
                     this.setState({
                         isLoggedin: false
                     })
+                    localStorage.clear()
+                    this.props.history.push("/login")
                 }
             });
         } else {
@@ -72,6 +78,7 @@ class Transaction_History extends Component {
                 className: "custom-toast",
                 autoClose: 2000,
             })
+            localStorage.clear()
             this.props.history.push("/login")
         }
     }
@@ -131,6 +138,7 @@ class Transaction_History extends Component {
             })   
         })
         .catch((error) => {
+            console.log(error.response.status)
             if (error.response.status === 403) {
                 toast.info('access expired, please login again', 
                 {
@@ -142,6 +150,8 @@ class Transaction_History extends Component {
                 this.setState({
                     isLoggedin: false
                 })
+                localStorage.clear()
+                this.props.history.push("/login")
             }
         });
 
@@ -156,6 +166,10 @@ class Transaction_History extends Component {
         })
     }
 
+    print = (invoiceNumber) => {
+        localStorage.invoiceNumber = invoiceNumber
+        this.props.history.push("/invoice_to_pdf")
+    }
     customStyles = {
         content : {
             top                   : '55%',
@@ -169,6 +183,11 @@ class Transaction_History extends Component {
         }
       };
     render() {
+        if (this.state.isLoading) {
+            return  <div style={{textAlign: "center"}}>
+                        <img src={require('../dist/img/main_loader.gif')} alt="loader"/>
+                    </div>
+        }
         return (
             <div>
                 {this.state.modalIsOpen ? (
@@ -176,45 +195,70 @@ class Transaction_History extends Component {
                 ) : (
                     <div>
                     <Header />
-                    <section className="course_details_area section_padding" style={{padding: "120px 0"}}>
-                        <div className="container " style={{borderLeft: "2px solid #0000004d", borderRight: "2px solid #0000004d"}}>
+                    <Banner />
+                    <section className="course_details_area section_padding" style={{padding: "120px 0 0"}}>
+                        <div className="container ">
+                            <div className="row justify-content-center">
+                                <div className="col-xl-5">
+                                    <div className="section_tittle text-center">
+                                    <h2 className="wow fadeIn">Transactions</h2>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="row">
                             <div className="col-lg-12 course_details_left">
-                                <div className="content_history">
-                                <div className="here" style={{fontWeight: "600"}}>
-                                    <h4>TRANSACTION HISTORY</h4>
-                                    <div className="bor-bottom"></div>
-                                </div>
+                                <div className="content_history" style={{padding: "1rem"}}>
+                                {this.state.isLoading ? (
+                                    <div className="blog_right_sidebar" >
+                                        <div style={{textAlign:"center"}}>
+                                            <img src={require('../../img/loader.gif')} alt="loader"/>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="blog_right_sidebar" >
+                                        {this.state.invoices.map((invoice, i) => (
+                                            <aside className="single_sidebar_widget popular_post_widget mb-2" style={{boxShadow: "0px 0px 10px 0px #00000061",
+                                                borderRadius: "4px"}} key={i}>
+                                                <div className="row justify-content-between d-flex details">
+                                                    <div className="col-sm-4"><span></span></div>
+                                                    <div className="col-sm-4"><span></span></div>
+                                                    <div className="col-sm-4">
+                                                        <span className="badge badge-success" style={{textTransform:"capitalize", float:"right"}}>{invoice.status}</span>
+                                                    </div>
+                                                </div>
+                                                <div className="row justify-content-between d-flex details">
+                                                    <div className="col-sm-4 pl-3 pr-3 justify-content-between d-flex details">
+                                                        <span>No. Invoice</span><span style={{fontWeight:"bold"}}>{invoice.invoice.invoiceNumber}</span>
+                                                    </div>
+                                                    <div className="col-sm-4 pl-3 pr-3 justify-content-between d-flex details">
+                                                        <span style={{textTransform:"capitalize"}}>Invoice Date</span><span>{invoice.invoice.invoiceDate}</span>
+                                                    </div>
+                                                    <div className="col-sm-4"><span></span></div>
+                                                </div>
+                                                <div className="justify-content-between d-flex details">
+                                                    <span>{invoice.invoice.product.productName}</span>
+                                                </div>
+                                                <div className="row justify-content-between d-flex details">
+                                                    <div className="col-sm-4"><span>x{invoice.invoice.qty}</span></div>
+                                                    <div className="col-sm-4 pl-3 pr-3 justify-content-between d-flex details">
+                                                        <span style={{textTransform:"capitalize"}}>Total</span>
+                                                        <span>Rp {invoice.invoice.product.price}</span>
+                                                    </div>
+                                                    <div className="col-sm-4"></div>
+                                                </div>
+                                                <div className="row justify-content-between d-flex details mt-3">
+                                                    <div className="col-sm-4"></div>
+                                                    <div className="col-sm-8 pl-3 pr-3 justify-content-between d-flex details mt-3">
+                                                        <span onClick={() => this.transactionDetail(invoice.invoice.invoiceNumber)} style={{cursor:"pointer", color:"#6c757d"}}><i className="far fa-eye"></i> Click to detail</span>
+                                                        <span onClick={() => this.print(invoice.invoice.invoiceNumber)} style={{cursor:"pointer", float:"right", color:"#6c757d"}}><i class="fas fa-radiation-alt"></i> Print</span>
+                                                    </div>
+                                                </div>
+                                            </aside>
+                                        ))}                      
+                                    </div>
+                                )}
                                 
-                                <div className="blog_right_sidebar" >
-                                {this.state.invoices.map((invoice, i) => (
-                                    <aside className="single_sidebar_widget popular_post_widget border-bottom pb-4" key={i} style={{background: "#fff"}}>
-                                        <div className="row justify-content-between d-flex details">
-                                            <div className="col-sm-4"><span>No. Invoice</span></div>
-                                            <div className="col-sm-4"><span style={{textTransform:"capitalize"}}>Invoice Date</span></div>
-                                            <div className="col-sm-4"><span className="badge badge-success" style={{textTransform:"capitalize", float:"right"}}>{invoice.status}</span></div>
-                                        </div>
-                                        <div className="row justify-content-between d-flex details">
-                                            <div className="col-sm-4"><span style={{fontWeight:"bold"}}>{invoice.invoice.invoiceNumber}</span></div>
-                                            <div className="col-sm-4"><span style={{textTransform:"capitalize"}}>{invoice.invoice.invoiceDate}</span></div>
-                                            <div className="col-sm-4"></div>
-                                        </div>
-                                        <div className="justify-content-between d-flex details">
-                                            <span>{invoice.invoice.product.productName}</span>
-                                        </div>
-                                        <div className="row justify-content-between d-flex details">
-                                            <div className="col-sm-4"><span>x{invoice.invoice.qty}</span></div>
-                                            <div className="col-sm-4"><span style={{textTransform:"capitalize"}}>Total</span></div>
-                                            <div className="col-sm-4"></div>
-                                        </div>
-                                        <div className="row justify-content-between d-flex details">
-                                            <div className="col-sm-4"></div>
-                                            <div className="col-sm-4"><span>Rp {invoice.invoice.product.price}</span></div>
-                                            <div className="col-sm-4"><span onClick={() => this.transactionDetail(invoice.invoice.invoiceNumber)} style={{cursor:"pointer", float:"right"}}><i className="far fa-eye"></i> Click to detail</span></div>
-                                        </div>
-                                    </aside>
-                                ))}                      
-                                </div>
+                                
                                 </div>
                             </div>
                             </div>
@@ -235,6 +279,7 @@ class Transaction_History extends Component {
                 contentLabel="Example Modal"
                 ariaHideApp={false}
                 >
+                <SkeletonTheme color="#6e6b6b" highlightColor="#fff">
                     <div className="content_modal">
                     <div className="justify-content-between d-flex" style={{background: "#3786bd", color: "#fff"}}>
                         <span>Transaction Detail </span>
@@ -245,29 +290,63 @@ class Transaction_History extends Component {
                                 <span>Invoice Date</span>
                             </div>  
                             <div className="justify-content-between d-flex details">
-                                <span>{this.state.invoiceDate}</span>
-                                <span className="badge badge-success" style={{textTransform:"capitalize"}}>{this.state.description} </span>
+                                {this.state.invoiceDate ? (
+                                    <span>{this.state.invoiceDate}</span>
+                                ) : (
+                                    <span><Skeleton width={60} /></span>
+                                )}
+                                {this.state.description ? (
+                                    <span className="badge badge-success" style={{textTransform:"capitalize"}}>{this.state.description} </span>
+                                ) : (
+                                    <span><Skeleton width={60} /></span>
+                                )}
+                                
                             </div>
                             <div className="media post_item">
-                                <img style={{maxWidth:"25%"}} src={this.state.productImage} alt="" />
+                                {this.state.productImage ? (
+                                        <img style={{maxWidth:"25%"}} src={this.state.productImage} alt="" />
+                                ) : (
+                                    <div className="img-fluid" style={{margin:"auto", textAlign:"center"}}>
+                                        {/* <img src={require('../../../img/loader.gif')} alt="loader"/> */}
+                                        <Skeleton width={150} height={150} />
+                                    </div>
+                                )}
+                                
                                 <div className="media-body">
                                     <div className="justify-content-between d-flex details">
                                         <span>Product Name</span>
                                     </div>
                                     <div className="justify-content-between d-flex details mb-1">
-                                        <span style={{maxWidth: "50%"}}>{this.state.productName}</span>
+                                        {this.state.productName ? (
+                                            <span style={{maxWidth: "50%"}}>{this.state.productName}</span>
+                                        ) : (
+                                            <span><Skeleton width={60} /></span>
+                                        )}
+                                        
                                     </div>
                                     <div className="justify-content-between d-flex details mb-1">
                                         <span>Qty </span>
-                                        <span>{this.state.qty} </span>
+                                        {this.state.qty ? (
+                                            <span>{this.state.qty} </span>
+                                        ) : (
+                                            <Skeleton width={60} />
+                                        )}
                                     </div>
                                     <div className="justify-content-between d-flex details mb-1">
                                         <span>Price </span>
-                                        <span style={{fontWeight:"bold"}}>Rp {this.state.price}</span>
+                                        {this.state.price ? (
+                                            <span style={{fontWeight:"bold"}}>Rp {this.state.price}</span>
+                                        ) : (
+                                            <Skeleton width={60} />
+                                        )}
                                     </div>
                                     <div className="justify-content-between d-flex details">
                                         <span>No. Invoice</span>
-                                        <span style={{fontWeight:"bold"}}>{this.state.invoiceNumber}</span>
+                                        {this.state.invoiceNumber ? (
+                                            <span style={{fontWeight:"bold"}}>{this.state.invoiceNumber}</span>
+                                        ) : (
+                                            <Skeleton width={60} />
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -276,18 +355,30 @@ class Transaction_History extends Component {
                             <div className="media-body">
                                 <div className="justify-content-between d-flex details">
                                     <span>SubTotal</span>
-                                    <span>Rp {this.state.price}</span>
+                                    {this.state.price ? (
+                                        <span>Rp {this.state.price}</span>
+                                    ) : (
+                                        <Skeleton width={60} />
+                                    )}
                                 </div>
                                 <div className="justify-content-between d-flex details">
                                     <span>Admin Fee ({this.state.adminFee})</span>
-                                    <span>Rp {this.state.adminPrice}</span>
+                                    {this.state.adminPrice ? (
+                                        <span>Rp {this.state.adminPrice}</span>
+                                    ) : (
+                                        <Skeleton width={60} />
+                                    )}
                                 </div>
                             </div>
                             <div className="widget_title"> </div>
                             <div className="media-body">
                                 <div className="justify-content-between d-flex details">
                                     <span style = {{fontWeight: "bold"}} >Price Total</span>
-                                    <span style = {{fontWeight: "bold"}} >Rp {this.state.amount}</span>
+                                    {this.state.amount ? (
+                                        <span style = {{fontWeight: "bold"}} >Rp {this.state.amount}</span>
+                                    ) : (
+                                        <Skeleton width={60} />
+                                    )}
                                 </div>
                             </div>
                             <br/>
@@ -299,19 +390,36 @@ class Transaction_History extends Component {
                             <div className="media-body">
                             <div className="justify-content-between d-flex details">
                                     <span>Transaction Date</span>
-                                    <span>{this.state.transactionDate}</span>
+                                    {this.state.transactionDate ? (
+                                        <span>{this.state.transactionDate}</span>
+                                    ) : (
+                                        <Skeleton width={60} />
+                                    )}
                                 </div>
                                 <div className="justify-content-between d-flex details">
                                     <span>Transaction ID</span>
-                                    <span>{this.state.transactionId}</span>
+                                    {this.state.transactionId ? (
+                                        <span>{this.state.transactionId}</span>
+                                    ) : (
+                                        <Skeleton width={60} />
+                                    )}
                                 </div>
                                 <div className="justify-content-between d-flex details">
                                     <span>Price Total</span>
-                                    <span>Rp {this.state.amount}</span>
+                                    {this.state.amount ? (
+                                        <span>Rp {this.state.amount}</span>
+                                    ) : (
+                                        <Skeleton width={60} />
+                                    )}
                                 </div>
                                 <div className="justify-content-between d-flex details">
                                     <span>Payment Total</span>
-                                    <span>Rp {this.state.amount}</span>
+                                    {this.state.amount ? (
+                                        <span>Rp {this.state.amount}</span>
+                                    ) : (
+                                        <Skeleton width={60} />
+                                    )}
+                                    
                                 </div>
                                 <div className="justify-content-between d-flex details">
                                     <span>Payment Method</span>
@@ -326,6 +434,7 @@ class Transaction_History extends Component {
                         </aside>
                     </div>
                 </div>
+                </SkeletonTheme>
                 </Modal>
             </div>
         );

@@ -7,6 +7,7 @@ import Header from './Header';
 import Success from './Success';
 import Pending from './Pending';
 import { toast } from 'react-toastify';
+import { findAllByDisplayValue } from '@testing-library/react';
 
 class Transaction_Status extends Component {
     state = {
@@ -30,7 +31,8 @@ class Transaction_Status extends Component {
         updatedDate: "",
         qty: 0,
         status: "",
-        isSuccess: false
+        isSuccess: false,
+        isLoading: true
     }
 
     componentDidMount() {
@@ -51,6 +53,7 @@ class Transaction_Status extends Component {
                 }
             })
             .then((response) => {
+
                 let res = response.data.content;
 
                 var amount = res.invoiceNominal;
@@ -85,7 +88,8 @@ class Transaction_Status extends Component {
                     productName: res.product.productName,
                     price: price_format,
                     qty: res.qty,
-                    status: res.status
+                    status: res.status,
+                    isLoading: false,
                 })
                 if (res.status === "success") {
                     this.setState({
@@ -98,6 +102,21 @@ class Transaction_Status extends Component {
                 } 
             })
             .catch((error) => {
+                console.log(error.response.status)
+                if (error.response.status === 403) {
+                    toast.info('access expired, please login again', 
+                    {
+                        position: toast.POSITION.TOP_CENTER,
+                        hideProgressBar: true,
+                        className: "custom-toast",
+                        autoClose: 2000,
+                    })
+                    this.setState({
+                        isLoggedin: false
+                    })
+                    localStorage.clear()
+                    this.props.history.push("/login")
+                }
             });
         } else {
             toast.info('please login to continue', 
@@ -107,16 +126,19 @@ class Transaction_Status extends Component {
                 className: "custom-toast",
                 autoClose: 2000,
             })
+            localStorage.clear()
             this.props.history.push("/login")
         }
-        
-    }
-    paymentCheck = () => {
         
     }
     render() {
         return (
             <div>
+                {this.state.isLoading ? (
+                    <div style={{textAlign: "center"}}>
+                        <img src={require('../dist/img/main_loader.gif')} alt="loader"/>
+                    </div>
+                ) : (
                 <section className="course_details_area section_padding" style={{padding: "40px 0"}}>
                 <div className="container">
                     <div className="row">
@@ -136,6 +158,7 @@ class Transaction_Status extends Component {
                                 invoiceDate = {this.state.invoiceDate}
                                 status = {this.state.status}
                                 content = {this.state.content}
+                                loading = {this.state.isLoading}
                             />
                         ) : (
                             <Pending 
@@ -152,12 +175,14 @@ class Transaction_Status extends Component {
                                 invoiceDate = {this.state.invoiceDate}
                                 status = {this.state.status}
                                 content = {this.state.content}
+                                loading = {this.state.isLoading}
                             />
                         )}
                     </div>
                     </div>
                 </div>
                 </section>
+                )}
             </div>
         );
     }

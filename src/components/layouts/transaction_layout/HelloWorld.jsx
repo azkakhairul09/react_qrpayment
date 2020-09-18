@@ -1,98 +1,102 @@
-import React, {Component} from 'react';
-import SweetAlert from 'react-bootstrap-sweetalert';
-import Modal from 'react-modal';
+import Axios from "axios";
+import React, { Component } from "react";
+import Slider from "react-slick";
 
-export default class HelloWorld extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      alert: null
-    };
-  } 
-
-  customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
-    }
-  };
-
+export default class CenterMode extends Component {
   state = {
-    modalIsOpen: false
+    loading: true,
+    products: [],
+    redirect: false
   }
 
-  deleteThisGoal = () => {
-    const getAlert = () => (
-      <SweetAlert 
-        success 
-        title="Woot!" 
-        onConfirm={() => this.hideAlert()}
-      >
-        Hello world!
-      </SweetAlert>
-    );
-
-    this.setState({
-      alert: getAlert()
-    });
-  }
-
-  hideAlert() {
-    console.log('Hiding alert...');
-    this.setState({
-      alert: null
-    });
-  }
-
-  openModal = () => {
-    this.setState ({
-      modalIsOpen: true
-    })
-  }
-
-  closeModal = () => {
-    this.setState({
-      modalIsOpen: false
-    })
+  componentDidMount() {
+      // const urlGetProducts = "http://localhost:8085/sangbango-microservices/payment/v1/product/all"
+      const urlGetProducts = "https://qrispayments.herokuapp.com/product/all"
+      
+      Axios.get(urlGetProducts, {
+          headers: {
+          }
+      })
+      .then((response) => {
+          let res = response.data;
+          console.log(res)
+          this.setState ({
+              products: response.data.content,
+              loading: false
+          })         
+      })
+      .catch((error) => {
+        console.log(error)
+        this.setState({
+            loading: false,
+            products: []
+        })
+      });
   }
   render() {
+    var settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            infinite: true,
+            speed: 500,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+            speed: 500,
+            dots: true
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            infinite: true,
+            speed: 500,
+            dots: true
+          }
+        }
+      ]
+    };
     return (
-      <div style={{ padding: '20px' }}>
-          <a 
-            onClick={() => this.deleteThisGoal()}
-            className='btn btn-danger'
-          >
-            <i className="fa fa-trash" aria-hidden="true"></i> Delete Goal
-        </a>
-        {this.state.alert}
-
-        <button onClick={this.openModal}>Open Modal</button>
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          // onAfterOpen={afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={this.customStyles}
-          contentLabel="Example Modal"
-          ariaHideApp={false}
-        >
- 
-          
-          <button onClick={this.closeModal}>close</button>
-          <div>I am a modal</div>
-            <img className="card-img-top" src="..." alt="Card image cap" />
-            <div className="card-body">
-              <h5 className="card-title">Card title</h5>
-              <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" className="btn btn-primary">Go somewhere</a>
+          <Slider {...settings}>
+            {this.state.products.map((product, i) => (
+            <div className="wow slideInUp" key={i}>
+            <div>
+              <div className="single_special_cource" style={{border: "1px solid #edeff2", margin: "auto", maxWidth: "80%"}}>
+                <img src={product.productImage} className="special_img" style={{margin: "auto", maxWidth:"85%", background:"#0000000d"}} alt="" />
+                <div className="special_cource_text mt-3">
+                  <div className="btn_4" style={{fontSize: "12px"}} onClick={() => this.detail(product.productId)}>DETAIL</div>
+                  <div className="justify-content-between d-flex details mt-3" style={{color:"#888"}}>
+                      <small>Price</small>
+                      <small>Rp {product.price}</small>
+                  </div>
+                  {/* <a href="course-details.html">
+                  <h3 style={{textTransform: "capitalize"}}>{product.productName}</h3>
+                  </a> */}
+                  <p>{product.productName}</p>
+                  <span style={{fontSize: "12px", fontWeight: "bold"}}>{product.categorize}</span>
+                </div>
+              </div>
             </div>
-        </Modal>
-      </div>
+            </div>
+            ))}
+          </Slider>
     );
   }
 }

@@ -69,6 +69,17 @@ class ProductForm extends Component {
             })
         })
         .catch((error) => {
+            if (error.response.status === 403) {
+                toast.info('access expired, please login again', 
+                {
+                    position: toast.POSITION.TOP_CENTER,
+                    hideProgressBar: true,
+                    className: "custom-toast",
+                    autoClose: 2000,
+                })
+                localStorage.clear()
+                this.props.history.push("/login")
+            }
         });
     }
     renderRedirect = () => {

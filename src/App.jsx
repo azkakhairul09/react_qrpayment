@@ -15,10 +15,12 @@ import "./components/akses/Login.css";
 import Transaction_Status from './components/layouts/transaction_layout/Transaction_Status';
 import Transaction_History from './components/layouts/history_layout/Transaction_History';
 import HelloWorld from './components/layouts/transaction_layout/HelloWorld';
-import Detail_History from './components/layouts/history_layout/Detail_History';
 import Not_found from './Not_Found';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Print_Transaction from './components/layouts/history_layout/Print_Transaction';
 
 // Authentication Initializing
 const fakeAuth = {
@@ -50,13 +52,16 @@ class Login extends Component {
       this.state = {
           email: "",
           password: "",
-          redirectToReferrer: false         
+          redirectToReferrer: false  ,     
       };
 
       this.onChange = this.onChange.bind(this);
       this.onSubmit = this.onSubmit.bind(this);
   }
 
+  state = {
+    isDisabled: false  
+  }
   onChange(e) {
       this.setState({ [e.target.name]: e.target.value});
       // const { id, value } = e.target;
@@ -68,6 +73,9 @@ class Login extends Component {
 
   onSubmit(e) {
       e.preventDefault();
+      this.setState({
+        isDisabled: true
+      })
       const headers = {
           "Accept": "application/json",
           "Content-Type": "application/json",
@@ -117,6 +125,9 @@ class Login extends Component {
           }
       })
       .catch((error) => {
+        this.setState({
+          isDisabled: false
+        })
         toast.info("username or password is not valid.", 
           {
             position: toast.POSITION.TOP_CENTER,
@@ -146,7 +157,12 @@ class Login extends Component {
                       <input type="password" name="password" id="password" value={this.state.password} onChange={this.onChange} placeholder="Password" required />
                       <Link to="">Forgot password ?</Link>
                       <br/>
-                      <input type="submit" name="login" className="login-button text-uppercase" defaultValue="LOGIN" />
+                      {this.state.isDisabled ? (
+                        <button type="submit" name="login" className="login-button text-uppercase" style={{cursor:"not-allowed"}} disabled>login</button>
+                      ) : (
+                        <button type="submit" name="login" className="login-button text-uppercase">login</button>
+                      )}
+                      
                       </div>
                   </form>
                   </div>
@@ -229,7 +245,7 @@ class App extends Component {
               <Route path="/detail_product" exact component={Products_Detail} />
               <PrivateRoute path="/transactionstatus" exact component={Transaction_Status} />
               <PrivateRoute path="/history" exact component={Transaction_History} />
-              <PrivateRoute path="/transactions/detail" exact component={Detail_History} />
+              <PrivateRoute path="/invoice_to_pdf" exact component={Print_Transaction} />
               <PrivateRoute path="/dashboard" exact component={Dashboard} />
               <PrivateRoute path="/product" exact component={Product} />
               <PrivateRoute path="/product_form" exact component={ProductForm} />

@@ -33,7 +33,7 @@ class Pending extends Component {
             <div>
                 <div className="content_status">
                     <nav style={{padding: ".5rem .5rem", paddingBottom: "2rem"}} className="navbar navbar-expand-lg navbar-light">
-                        <Link className="navbar-brand" to=""> <img src={require("../dist/img/logo.png")} alt="logo" /> </Link>
+                        <Link className="navbar-brand" to=""> <img src={require("../dist/img/company-logo.png")} style={{maxWidth:"50%"}} alt="logo" /> </Link>
                     </nav>
                     <div className="justify-content-between d-flex" style={{background: "#cacaca"}}>
                         <span>INVOICE </span>
@@ -87,7 +87,11 @@ class Pending extends Component {
                                     <span>QRIS (QR Payment)</span>
                                 </div>
                                 <div className="pending load_more mb-2 mt-5">
-                                    <div className="btn_4" onClick={() => this.showQr(this.props.content)}>Show QR</div>
+                                    {this.state.disabled ? (
+                                        <div className="btn_4" style={{cursor:"not-allowed"}}>Show QR</div>
+                                    ) : (
+                                        <div className="btn_4" onClick={() => this.showQr(this.props.content)}>Show QR</div>
+                                    )}
                                 </div>
                             </div>
                         </aside>

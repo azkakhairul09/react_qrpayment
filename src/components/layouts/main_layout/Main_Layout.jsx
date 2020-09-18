@@ -33,6 +33,7 @@ class Layout extends Component {
 
         localStorage.removeItem('productId');
         localStorage.removeItem('invoiceNo');
+        localStorage.removeItem('invoiceNumber');
         return (
             <div>
                 {this.state.loading ? (

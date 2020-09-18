@@ -4,6 +4,7 @@ import Qs from 'query-string'
 import qrcode from "qrcode";
 import { Redirect } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 class Checkout extends Component {
     constructor(props) {
@@ -67,6 +68,7 @@ class Checkout extends Component {
                             className: "custom-toast",
                             autoClose: 2000,
                         })
+                        localStorage.clear()
                         this.setState({
                             isLoggedin: false
                         })
@@ -80,6 +82,7 @@ class Checkout extends Component {
                     autoClose: 2000,
                     className: "custom-toast"
                 })
+                localStorage.clear()
                 this.setState({
                     isLoggedin: false
                 })
@@ -117,19 +120,36 @@ class Checkout extends Component {
                         
                     </div>
                     <div className="main_image mb-3">
-                        <canvas id="canvas" />
+                        {this.state.qrcontent ? (
+                            <canvas id="canvas" />
+                        ) : (
+                            <div style={{textAlign:"center"}}>
+                                <img src={require('../../../img/loader.gif')} alt="loader"/>
+                            </div>
+                        )}
                     </div>
                 </aside>
+                <SkeletonTheme color="#6e6b6b" highlightColor="#fff">
                 <div className="border-top pt-2 mb-5">
                     <a className="justify-content-between d-flex" href="#">
                         <span>Total </span>
-                        <span>Rp {this.state.price}</span>
+                        {this.state.price ? (
+                            <span>Rp {this.state.price}</span>
+                        ) : (
+                            <span><Skeleton width={60} /></span>
+                        )}
+                        
                     </a>
                     <a className="justify-content-between d-flex" href="#">
                         <span>No. Invoice </span>
-                        <span>{this.state.invoiceNo}</span>
+                        {this.state.invoiceNo ? (
+                            <span>{this.state.invoiceNo}</span>
+                        ) : (
+                            <span><Skeleton width={60} /></span>
+                        )}
                     </a>
                 </div>
+                </SkeletonTheme>
                 <h6>Scan by</h6>
                 <img src={require("../../dist/img/ewallet.jpg")} />
                 {/* {this.renderRedirect()} */}

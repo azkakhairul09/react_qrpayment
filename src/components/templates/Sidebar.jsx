@@ -17,7 +17,7 @@ class Sidebar extends Component {
                     <Link to="index3.html" className="brand-link">
                     <img
                         src="dist/img/AdminLTELogo.png"
-                        alt="AdminLTE Logo"
+                        alt="Company Logo"
                         className="brand-image img-circle elevation-3"
                         style={{ opacity: ".8" }}
                     />

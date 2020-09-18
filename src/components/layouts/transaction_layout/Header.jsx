@@ -11,7 +11,7 @@ export default class Header extends Component {
                     <div className="row align-items-center">
                     <div className="col-lg-12">
                         <nav className="navbar navbar-expand-lg navbar-light">
-                            <Link className="navbar-brand" to=""> <img src={require("../dist/img/logo.png")} alt="logo" /> </Link>
+                            <Link className="navbar-brand" to=""> <img src={require("../dist/img/company-logo.png")} style={{maxWidth: "40%"}} alt="logo" /> </Link>
                         </nav>
                     </div>
                     </div>

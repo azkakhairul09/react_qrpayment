@@ -72,7 +72,7 @@ class Register extends Component {
 
         axios.post(urlRegistration+Qs.stringify(roleParameter), registration, headers)
         .then((response) => {
-            toast.info('registered ', 
+            toast.info('registration success ', 
             {
               position: toast.POSITION.TOP_CENTER,
               hideProgressBar: true,

@@ -26,10 +26,10 @@ class Someproducts extends Component {
         })
         .catch((error) => {
             console.log(error)
-          this.setState({
-              loading: false,
-              error: true
-          })
+            this.setState({
+                loading: false,
+                error: true
+            })
         });
     }
     detail = (productId) => {
@@ -68,7 +68,7 @@ class Someproducts extends Component {
                         </div>
                     </section>  
         }
-
+        
         if (this.state.error) {
             return  <section className="special_cource" name="products" id="products">
                         <div className="container">
@@ -86,7 +86,6 @@ class Someproducts extends Component {
                     </section>        
         }
 
-        // {this.refresh}
         return (
             <div>
                 {/*::review_part start::*/}
@@ -105,7 +104,12 @@ class Someproducts extends Component {
                         {this.state.someproducts.map((product, i) => (
                             <div className="col-sm-6 col-lg-4 wow slideInUp" key={i}>
                                 <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
-                                <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
+                                {product.productImage ? (
+                                    <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
+                                ) : (
+                                    <img src={require('../../img/loader.gif')} className="special_img" alt="loader"/>
+                                )}
+                                
                                 <div className="special_cource_text">
                                     {this.renderRedirect()}
                                     <div className="btn_4" onClick={() => this.detail(product.productId)}>DETAIL</div>
