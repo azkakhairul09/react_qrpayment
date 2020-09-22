@@ -152,37 +152,39 @@ class Transaction extends Component {
                                     >
                                         <thead>
                                             <tr>
-                                                <th>Invoice No.</th>
-                                                <th>Merchant ID</th>
-                                                <th>Product Name</th>
-                                                <th>Amount (IDR)</th>
-                                                <th>Admin (IDR)</th>
-                                                <th>Total_Settled (IDR)</th>
-                                                <th>Transaction Date</th>
-                                                <th>Status</th>
-                                                <th>Description</th>
-                                                <th>Trx Id</th>
+                                                <th><small style={{fontWeight:"bold"}}>Invoice No.</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Merchant ID</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Product Name</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Amount (IDR)</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Admin (IDR)</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Total_Settled (IDR)</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Transaction Date</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Status</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Description</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Buyer</small></th>
+                                                <th><small style={{fontWeight:"bold"}}>Trx Id</small></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {this.state.transactions.map((transaction, i) => (
                                                 <tr key={i}>
-                                                <td>
+                                                <td><small>
                                                     {transaction.isConfirmed ? (
                                                         <div style={{color:"#212529"}}>{transaction.invoice.invoiceNumber}</div>
                                                     ):(
                                                         <div style={{color:"#007bff", cursor:"pointer"}} onClick={() => this.confirmation(transaction.transactionId)}>{transaction.invoice.invoiceNumber}</div>
-                                                    )}
+                                                    )}</small>
                                                 </td>
-                                                <td>{transaction.merchantId}</td>
-                                                <td>{transaction.invoice.product.productName}</td>
-                                                <td>Rp{transaction.amount}</td>
-                                                <td>Rp{transaction.invoice.product.adminPrice}</td>
-                                                <td>Rp{transaction.invoice.product.price}</td>
-                                                <td>{transaction.transactionDate}</td>
-                                                <td>{transaction.status}</td>
-                                                <td>{transaction.description}</td>
-                                                <td>{transaction.transactionId}</td>
+                                                <td><small>{transaction.merchantId}</small></td>
+                                                <td><small>{transaction.invoice.product.productName}</small></td>
+                                                <td><small>Rp{transaction.amount}</small></td>
+                                                <td><small>Rp{transaction.invoice.product.adminPrice}</small></td>
+                                                <td><small>Rp{transaction.invoice.product.price}</small></td>
+                                                <td><small>{transaction.transactionDate}</small></td>
+                                                <td><small>{transaction.status}</small></td>
+                                                <td><small>{transaction.description}</small></td>
+                                                <td><small>{transaction.invoice.createdBy}</small></td>
+                                                <td><small>{transaction.transactionId}</small></td>
                                                 </tr>
                                             ))}
                                             {/* {transactionHistory} */}

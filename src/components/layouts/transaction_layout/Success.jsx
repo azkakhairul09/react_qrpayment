@@ -63,7 +63,7 @@ class Success extends Component {
                 <SkeletonTheme color="#6e6b6b" highlightColor="#fff">
                     <div className="content_status">
                         <nav style={{padding: ".5rem .5rem", paddingBottom: "2rem"}} className="navbar navbar-expand-lg navbar-light">
-                            <Link className="navbar-brand" to=""> <img src={require("../dist/img/company-logo.png")} style={{maxWidth:"50%"}} alt="logo" /> </Link>
+                            <Link className="navbar-brand" to=""> <img src={require("../dist/img/company-logo.png")} style={{maxWidth:"50% !important"}} alt="logo" /> </Link>
                         </nav>
                         <div className="justify-content-between d-flex" style={{background: "#cacaca"}}>
                             <span>INVOICE </span>
@@ -91,7 +91,7 @@ class Success extends Component {
                                 <br/>
                                 <h3 className="widget_title">Transaction Detail</h3>
                                 <div className="media post_item">
-                                    <img style={{maxWidth:"25%"}} src={this.props.productImage} alt="" />
+                                    <img style={{maxWidth:"25% !important"}} src={this.props.productImage} alt="" />
                                     <div className="media-body">
                                         {this.props.categorize ? <h3 style={{textTransform: "capitalize"}}>{this.props.categorize}</h3> : <Skeleton width={60} />}                                        
                                         <div className="justify-content-between d-flex details">

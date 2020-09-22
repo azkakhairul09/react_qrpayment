@@ -40,7 +40,7 @@ export default class Logout extends Component {
         return (
             <li className="nav-item dropdown" style={{borderLeft: "1px solid #000"}}>
                 {this.renderRedirect()}
-                <Link className="nav-link dropdown-toggle" to="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <Link className="nav-link dropdown-toggle" to="//" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {this.state.username}
                 </Link>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">

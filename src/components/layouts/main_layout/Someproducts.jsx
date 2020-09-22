@@ -119,8 +119,8 @@ class Someproducts extends Component {
                                     <div className="author_info">
                                     <div className="author_img">
                                         <div className="author_info_text">
-                                        <span>Created by:</span>
-                                        <h5><Link to="#">{product.createdBy}</Link></h5>
+                                        <span style={{fontSize: "12px", color: "#888"}}>Created by:</span>
+                                        <h5><Link to="#" style={{fontSize: "12px"}}>{product.createdBy}</Link></h5>
                                         </div>
                                     </div>
                                     </div>
