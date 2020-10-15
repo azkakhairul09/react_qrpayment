@@ -46,13 +46,15 @@ class Register extends Component {
         };
 
         const roleParameter = {
-            roleId: "RL-71"
+            roleId: "2"
         };
 
         // const urlRegistration =
         // "http://localhost:8085/sangbango-microservices/payment/v1/registration?";
+        // const urlRegistration =
+        // "https://qrispayments.herokuapp.com/registration?";
         const urlRegistration =
-        "https://qrispayments.herokuapp.com/registration?";
+        "https://bangomicroservices.site/bango-backend-dev/registration?";        
 
         const registration = {
             name: this.state.name,
@@ -85,7 +87,7 @@ class Register extends Component {
             this.props.history.push("/login");
         })
         .catch((error) => {
-            console.log(error.response.data);
+            // console.log(error.response.data);
             this.setState({
                 isLoading: false
             })

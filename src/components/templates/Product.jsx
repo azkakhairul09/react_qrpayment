@@ -24,7 +24,8 @@ class Product extends Component {
         let decoded = JSON.parse(userData);
 
         // const urlGetProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product/all"
-        const urlGetProduct = "https://qrispayments.herokuapp.com/product/all"
+        // const urlGetProduct = "https://qrispayments.herokuapp.com/product/all"
+        const urlGetProduct = "https://bangomicroservices.site/bango-backend-dev/product/all"
 
         axios.get(urlGetProduct, {
             headers: {
@@ -50,6 +51,17 @@ class Product extends Component {
                     redirect: true
                 })  
             }
+            if (error.response.status === 403) {
+                toast.info('access expired, please login again', 
+                {
+                    position: toast.POSITION.TOP_CENTER,
+                    hideProgressBar: true,
+                    className: "custom-toast",
+                    autoClose: 2000,
+                })
+                localStorage.clear()
+                this.props.history.push("/login")
+            }
             this.setState ({
                 loading: true
             })
@@ -62,7 +74,8 @@ class Product extends Component {
         let decoded = JSON.parse(userData);
 
         // const urlDisactive = "http://localhost:8085/sangbango-microservices/payment/v1/product/disactivated?productId="+productId
-        const urlDisactive = "https://qrispayments.herokuapp.com/product/disactivated?productId="+productId
+        // const urlDisactive = "https://qrispayments.herokuapp.com/product/disactivated?productId="+productId
+        const urlDisactive = "https://bangomicroservices.site/bango-backend-dev/product/disactivated?productId="+productId
 
         const data = {}
 
@@ -176,7 +189,7 @@ class Product extends Component {
                                         {this.state.products.map((product, i) => (
                                             <tr key={i}>
                                             <td>
-                                                <div style={{color:"#007bff", cursor:"pointer"}} onClick={() => this.disactive(product.productId)}><i class="fas fa-minus-circle" style={{color: "red"}}></i></div>
+                                                <div style={{color:"#007bff", cursor:"pointer"}} onClick={() => this.disactive(product.productId)}><i className="fas fa-minus-circle" style={{color: "red"}}></i></div>
                                             </td>
                                             <td>{product.categorize}</td>
                                             <td>{product.productId}</td>

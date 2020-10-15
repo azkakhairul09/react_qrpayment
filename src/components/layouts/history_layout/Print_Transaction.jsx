@@ -35,7 +35,8 @@ class Print_Transaction extends Component {
             invoiceNumber: invoiceNumber
         }
         // const urlTrxHistory = "http://localhost:8085/sangbango-microservices/payment/v1/transaction?" + Qs.stringify(param)
-        const urlTrxHistory = "https://qrispayments.herokuapp.com/transaction?" + Qs.stringify(param)
+        // const urlTrxHistory = "https://qrispayments.herokuapp.com/transaction?" + Qs.stringify(param)
+        const urlTrxHistory = "https://bangomicroservices.site/bango-backend-dev/transaction?" + Qs.stringify(param)
 
         Axios.get(urlTrxHistory, {
             headers: {
@@ -44,7 +45,7 @@ class Print_Transaction extends Component {
         })
         .then((response) => {
             let res = response.data.content
-            console.log(res)
+            // console.log(res)
             var amount = res.amount;
             var reverse = amount.toString().split('').reverse().join(''),
             amount_format = reverse.match(/\d{1,3}/g);
@@ -73,8 +74,8 @@ class Print_Transaction extends Component {
             })   
         })
         .catch((error) => {
-            console.log(error)
-            console.log(error.response.status)
+            // console.log(error)
+            // console.log(error.response.status)
             if (error.response.status === 403) {
                 toast.info('access expired, please login again', 
                 {

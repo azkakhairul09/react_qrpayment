@@ -28,7 +28,7 @@ $(function() {
         dom: 'Bfrtip',
         buttons: [{
             extend: 'excelHtml5',
-            className: 'btn btn-primary btn-xs',
+            className: 'btn btn-primary btn-xs mb-3',
             text: '<i class="fas fa-cloud-download-alt"></i> Excel',
             exportOptions: {
                 modifier: {

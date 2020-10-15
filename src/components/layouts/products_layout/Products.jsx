@@ -45,7 +45,8 @@ class Products extends Component {
 
     componentDidMount() {
         // const urlGetProducts = "http://localhost:8085/sangbango-microservices/payment/v1/product/all"
-        const urlGetProducts = "https://qrispayments.herokuapp.com/product/all"
+        // const urlGetProducts = "https://qrispayments.herokuapp.com/product/all"
+        const urlGetProducts = "https://bangomicroservices.site/bango-backend-dev/product/all"
         
         Axios.get(urlGetProducts, {
             headers: {
@@ -179,18 +180,18 @@ class Products extends Component {
                         <Slider {...settings}>
                         {/* <div className="row justify-content-center"> */}
                             {this.state.products.map((product, i) => (
-                            <div className="wow slideInUp p-2" key={i} style={{padding: "1.5px"}}>
+                            <div className="wow slideInUp p1" key={i}>
                             <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
                                 <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
                                 <div className="special_cource_text mt-3">
                                     {this.renderRedirect()}
-                                    <div className="btn_4" style={{fontSize: "12px"}} onClick={() => this.detail(product.productId)}>DETAIL</div>
+                                    <div className="btn_4" onClick={() => this.detail(product.productId)}>DETAIL</div>
                                     <div className="justify-content-between d-flex details mt-3" style={{color:"#888"}}>
-                                        <span style={{fontSize: "12px", color: "#888"}}>Price</span>
-                                        <span style={{fontSize: "12px", color: "#888"}}>Rp {product.price}</span>
+                                        <span>Price</span>
+                                        <span>Rp {product.price}</span>
                                     </div>
                                     <p style={{color:"#212529"}}>{product.productName}</p>
-                                    <span style={{fontSize: "12px", fontWeight: "bold"}}>{product.categorize}</span>
+                                    <span style={{fontSize: "12px"}}>by: {product.createdBy}</span>
                                 </div>
                             </div>
                             </div>

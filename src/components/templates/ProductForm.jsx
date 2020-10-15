@@ -32,14 +32,9 @@ class ProductForm extends Component {
         const userData = localStorage.getItem('userData');
         let decoded = JSON.parse(userData);
 
-        const headers = {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Authorization": decoded.token
-        };
-
         // const urlProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product"
-        const urlProduct = "https://qrispayments.herokuapp.com/product"
+        // const urlProduct = "https://qrispayments.herokuapp.com/product"
+        const urlProduct = "https://bangomicroservices.site/bango-backend-dev/product"
 
         const product = {
             categorize: this.state.categorize,

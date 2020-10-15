@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import Qs from 'query-string'
-import qrcode from "qrcode";
-import SweetAlert from 'react-bootstrap-sweetalert';
 import Axios from 'axios';
-import Header from './Header';
 import Success from './Success';
 import Pending from './Pending';
 import { toast } from 'react-toastify';
-import { findAllByDisplayValue } from '@testing-library/react';
 
 class Transaction_Status extends Component {
     state = {
@@ -45,7 +41,8 @@ class Transaction_Status extends Component {
             }
 
             // const urlGetInvoiceStatus = "http://localhost:8085/sangbango-microservices/payment/v1/invoice/getbyinvoiceNumber?" + Qs.stringify(param)
-            const urlGetInvoiceStatus = "https://qrispayments.herokuapp.com/invoice/getbyinvoiceNumber?" + Qs.stringify(param)
+            // const urlGetInvoiceStatus = "https://qrispayments.herokuapp.com/invoice/getbyinvoiceNumber?" + Qs.stringify(param)
+            const urlGetInvoiceStatus = "https://bangomicroservices.site/bango-backend-dev/invoice/getbyinvoiceNumber?" + Qs.stringify(param)
 
             Axios.get(urlGetInvoiceStatus, {
                 headers: {
@@ -102,7 +99,7 @@ class Transaction_Status extends Component {
                 } 
             })
             .catch((error) => {
-                console.log(error.response.status)
+                // console.log(error.response.status)
                 if (error.response.status === 403) {
                     toast.info('access expired, please login again', 
                     {

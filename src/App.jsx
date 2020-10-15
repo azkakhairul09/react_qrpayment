@@ -83,7 +83,8 @@ class Login extends Component {
 
       // const urlLogin =
       // "http://localhost:8085/sangbango-microservices/payment/v1/login";
-      const url = "https://qrispayments.herokuapp.com/login"
+      // const url = "https://qrispayments.herokuapp.com/login"
+      const url = "https://bangomicroservices.site/bango-backend-dev/login"
 
       const data = {
           email: e.target.elements.email.value,

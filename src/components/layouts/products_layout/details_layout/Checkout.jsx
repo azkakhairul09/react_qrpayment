@@ -30,7 +30,8 @@ class Checkout extends Component {
                     productId: this.props.productId
                 }
                 // const urlCreateQr = "http://localhost:8085/sangbango-microservices/payment/v1/invoice?" + Qs.stringify(param)
-                const urlCreateQr = "https://qrispayments.herokuapp.com/invoice?" + Qs.stringify(param)
+                // const urlCreateQr = "https://qrispayments.herokuapp.com/invoice?" + Qs.stringify(param)
+                const urlCreateQr = "https://bangomicroservices.site/bango-backend-dev/invoice?" + Qs.stringify(param)
         
                 const data = {}
         
@@ -60,17 +61,23 @@ class Checkout extends Component {
                     });
                 })
                 .catch((error) => {
-                    if (error.response.status === 403) {
-                        toast.info('access expired, please login again', 
-                        {
-                            position: toast.POSITION.TOP_CENTER,
-                            hideProgressBar: true,
-                            className: "custom-toast",
-                            autoClose: 2000,
-                        })
-                        localStorage.clear()
+                    if (error.response.status) {
+                        if (error.response.status === 403) {
+                            toast.info('access expired, please login again', 
+                            {
+                                position: toast.POSITION.TOP_CENTER,
+                                hideProgressBar: true,
+                                className: "custom-toast",
+                                autoClose: 2000,
+                            })
+                            localStorage.clear()
+                            this.setState({
+                                isLoggedin: false
+                            })
+                        }
+                    } else {
                         this.setState({
-                            isLoggedin: false
+                            error: true
                         })
                     }
                 });
@@ -94,7 +101,7 @@ class Checkout extends Component {
         this.setState({
             redirect: true
         }) 
-        window.open('/transactionstatus', "_blank") //to open new page
+        // window.open('/transactionstatus', "_blank") //to open new page
         localStorage.invoiceNo = invoiceNo
     }
 
@@ -109,7 +116,46 @@ class Checkout extends Component {
           return <Redirect to='/login' />
         }
     }
+    refresh = () => {
+        window.location.reload(false)
+    }
     render() {
+        if (this.state.error) {
+            return  <div>
+                        <aside className="single_sidebar_widget newsletter_widget">
+                            <div>
+                            <img src={require("../../dist/img/qris_default.png")} className="widget_title mb-2" style={{width:"35%"}} />
+                            <div style={{borderBottom: "1px solid #dee2e6", width: "100%", marginBottom: "0.75rem"}}></div>
+                                
+                            </div>
+                            <div className="main_image mb-3">
+                                <div style={{textAlign:"center"}}>
+                                    <img src={require('../../../img/confuse.jpg')} alt="confuse"/>
+                                    <h5>Sorry! Something went wrong...</h5>
+                                    <div className="btn_4 mb-1" onClick={(this.refresh)}>Try Again</div>
+                                    <div>
+                                        <span>If that doesn't work, contact me!</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                        <SkeletonTheme color="#6e6b6b" highlightColor="#fff">
+                        <div className="border-top pt-2 mb-5">
+                            <a className="justify-content-between d-flex" href="#">
+                                <span>Total </span>
+                                <span><Skeleton width={60} /></span>
+                            </a>
+                            <a className="justify-content-between d-flex" href="#">
+                                <span>No. Invoice </span>
+                                <span><Skeleton width={60} /></span>
+                            </a>
+                        </div>  
+                        </SkeletonTheme> 
+                    </div>     
+        }
+        if (this.state.redirect) {
+            return <Redirect to='/transactionstatus' />
+        }
         return (
             <div>
                 {this.renderLogin()}

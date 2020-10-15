@@ -12,7 +12,8 @@ class Someproducts extends Component {
 
     componentDidMount() {
         // const urlGetSomeProducts = "http://localhost:8085/sangbango-microservices/payment/v1/product/someproducts"
-        const urlGetSomeProducts = "https://qrispayments.herokuapp.com/product/someproducts"
+        // const urlGetSomeProducts = "https://qrispayments.herokuapp.com/product/someproducts"
+        const urlGetSomeProducts = "https://bangomicroservices.site/bango-backend-dev/product/someproducts"
 
         Axios.get(urlGetSomeProducts, {
             headers: {
@@ -25,7 +26,7 @@ class Someproducts extends Component {
             })      
         })
         .catch((error) => {
-            console.log(error)
+            // console.log(error)
             this.setState({
                 loading: false,
                 error: true
@@ -110,21 +111,26 @@ class Someproducts extends Component {
                                     <img src={require('../../img/loader.gif')} className="special_img" alt="loader"/>
                                 )}
                                 
-                                <div className="special_cource_text">
-                                    {this.renderRedirect()}
-                                    <div className="btn_4" onClick={() => this.detail(product.productId)}>DETAIL</div>
-                                    <h4>Rp {product.price}</h4>
-                                    {/* <Link to="course-details.html"><h3>{product.productName}</h3></Link> */}
-                                    <p>{product.productName}</p>
-                                    <div className="author_info">
-                                    <div className="author_img">
-                                        <div className="author_info_text">
-                                        <span style={{fontSize: "12px", color: "#888"}}>Created by:</span>
-                                        <h5><Link to="#" style={{fontSize: "12px"}}>{product.createdBy}</Link></h5>
+                                    <div className="special_cource_text">
+                                        {this.renderRedirect()}
+                                        <div className="btn_4" onClick={() => this.detail(product.productId)}>DETAIL</div>
+                                        <h4>Rp {product.price}</h4>
+                                        {/* <div className="mt-1 mb-1" style={{borderBottom: "1px solid #000"}}></div> */}
+                                        {/* <Link to="course-details.html"><h3>{product.productName}</h3></Link> */}
+                                        <h5 className="mb-0 mt-2">{product.productName}</h5>
+                                        <div className="bor-bottom mb-1" style={{width: "1rem"}}></div>
+                                        <small>Deskripsi:</small>
+                                        <br/>
+                                        <span>{product.productDesc}</span>
+                                        <div className="author_info mt-0">
+                                        <div className="author_img">
+                                            <div className="author_info_text">
+                                                <p>by: <Link to="#">{product.createdBy}</Link></p>
+                                                
+                                            </div>
+                                        </div>
                                         </div>
                                     </div>
-                                    </div>
-                                </div>
                                 </div>
                             </div>
                         ))}

@@ -40,7 +40,8 @@ class Transaction_History extends Component {
                 createdBy: decoded.name
             }
             // const urlTrxHistory = "http://localhost:8085/sangbango-microservices/payment/v1/invoice/getbycreatedby?" + Qs.stringify(param)
-            const urlTrxHistory = "https://qrispayments.herokuapp.com/invoice/getbycreatedby?" + Qs.stringify(param)
+            // const urlTrxHistory = "https://qrispayments.herokuapp.com/invoice/getbycreatedby?" + Qs.stringify(param)
+            const urlTrxHistory = "https://bangomicroservices.site/bango-backend-dev/invoice/getbycreatedby?" + Qs.stringify(param)
 
             Axios.get(urlTrxHistory, {
                 headers: {
@@ -91,7 +92,8 @@ class Transaction_History extends Component {
             invoiceNumber: invoiceNumber
         }
         // const urlTrxHistory = "http://localhost:8085/sangbango-microservices/payment/v1/transaction?" + Qs.stringify(param)
-        const urlTrxHistory = "https://qrispayments.herokuapp.com/transaction?" + Qs.stringify(param)
+        // const urlTrxHistory = "https://qrispayments.herokuapp.com/transaction?" + Qs.stringify(param)
+        const urlTrxHistory = "https://bangomicroservices.site/bango-backend-dev/transaction?" + Qs.stringify(param)
 
         Axios.get(urlTrxHistory, {
             headers: {
@@ -138,7 +140,7 @@ class Transaction_History extends Component {
             })   
         })
         .catch((error) => {
-            console.log(error.response.status)
+            // console.log(error.response.status)
             if (error.response.status === 403) {
                 toast.info('access expired, please login again', 
                 {

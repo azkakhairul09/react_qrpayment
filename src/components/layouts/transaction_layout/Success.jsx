@@ -28,7 +28,8 @@ class Success extends Component {
             invoiceNumber: invoiceNumber
         }
 
-        const urlGetTransaction = "https://qrispayments.herokuapp.com/transaction?" + Qs.stringify(param)
+        const urlGetTransaction = "https://bangomicroservices.site/bango-backend-dev/transaction?" + Qs.stringify(param)
+        // const urlGetTransaction = "https://qrispayments.herokuapp.com/transaction?" + Qs.stringify(param)
         // const urlGetTransaction = "http://localhost:8085/sangbango-microservices/payment/v1/transaction?" + Qs.stringify(param)
 
         Axios.get(urlGetTransaction, {
@@ -91,9 +92,10 @@ class Success extends Component {
                                 <br/>
                                 <h3 className="widget_title">Transaction Detail</h3>
                                 <div className="media post_item">
-                                    <img style={{maxWidth:"25% !important"}} src={this.props.productImage} alt="" />
+                                    <img style={{maxWidth:"25%"}} src={this.props.productImage} alt="" />
                                     <div className="media-body">
-                                        {this.props.categorize ? <h3 style={{textTransform: "capitalize"}}>{this.props.categorize}</h3> : <Skeleton width={60} />}                                        
+                                        {this.props.categorize ? <h3 style={{textTransform: "capitalize", marginBottom: "10px"}}>{this.props.categorize}</h3> : <Skeleton width={60} />}                                        
+                                        <div style={{borderBottom:"5px solid #3786bd", width:"25px", marginBottom: "5px"}}></div>
                                         <div className="justify-content-between d-flex details">
                                             {this.props.productName ? <span style={{maxWidth: "50%"}}>{this.props.productName}</span> : <Skeleton width={60} />}  
                                         </div>

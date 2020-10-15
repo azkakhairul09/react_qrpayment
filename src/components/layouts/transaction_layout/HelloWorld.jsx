@@ -11,7 +11,8 @@ export default class CenterMode extends Component {
 
   componentDidMount() {
       // const urlGetProducts = "http://localhost:8085/sangbango-microservices/payment/v1/product/all"
-      const urlGetProducts = "https://qrispayments.herokuapp.com/product/all"
+      // const urlGetProducts = "https://qrispayments.herokuapp.com/product/all"
+      const urlGetProducts = "https://bangomicroservices.site/bango-backend-dev/product/all"
       
       Axios.get(urlGetProducts, {
           headers: {
