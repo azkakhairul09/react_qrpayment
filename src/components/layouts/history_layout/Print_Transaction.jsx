@@ -115,7 +115,7 @@ class Print_Transaction extends Component {
                                         </div>
                                         <div className="row mb-3">
                                             <div className="col-md-12">
-                                                <img src={require('../dist/img/company-logo.png')} style={{maxWidth:"25%"}} alt="loader"/>
+                                                <img src={require('../dist/img/logo.png')} style={{maxWidth:"25%"}} alt="loader"/>
                                                 <br/>
                                                 <br/>
                                                 <p style={{fontWeight:"bold", color:"#212529", fontSize:"16px"}} className="mb-0">Nomor Invoice : <span style={{fontWeight:"bold", color: "#0c2e60", letterSpacing:"2px"}}>{this.state.invoiceNumber}</span></p>
