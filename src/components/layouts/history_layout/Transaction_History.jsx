@@ -219,8 +219,8 @@ class Transaction_History extends Component {
                                 ) : (
                                     <div className="blog_right_sidebar" >
                                         {this.state.invoices.map((invoice, i) => (
-                                            <aside className="single_sidebar_widget popular_post_widget mb-2" style={{boxShadow: "0px 0px 10px 0px #00000061",
-                                                borderRadius: "4px"}} key={i}>
+                                            <aside className="single_sidebar_widget popular_post_widget mb-2" style={{boxShadow: "0px 0px 4px 1px #00000053",
+                                                borderRadius: "0px"}} key={i}>
                                                 <div className="row justify-content-between d-flex details">
                                                     <div className="col-sm-4"><span></span></div>
                                                     <div className="col-sm-4"><span></span></div>

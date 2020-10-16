@@ -101,7 +101,7 @@ class Checkout extends Component {
         this.setState({
             redirect: true
         }) 
-        // window.open('/transactionstatus', "_blank") //to open new page
+        window.open('/transactionstatus', "_blank") //to open new page
         localStorage.invoiceNo = invoiceNo
     }
 
@@ -153,9 +153,9 @@ class Checkout extends Component {
                         </SkeletonTheme> 
                     </div>     
         }
-        if (this.state.redirect) {
-            return <Redirect to='/transactionstatus' />
-        }
+        // if (this.state.redirect) {
+        //     return <Redirect to='/transactionstatus' />
+        // }
         return (
             <div>
                 {this.renderLogin()}

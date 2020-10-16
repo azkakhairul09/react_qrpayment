@@ -33,7 +33,7 @@ class Pending extends Component {
             <div>
                 <div className="content_status">
                     <nav style={{padding: ".5rem .5rem", paddingBottom: "2rem"}} className="navbar navbar-expand-lg navbar-light">
-                        <Link className="navbar-brand" to=""> <img src={require("../dist/img/company-logo.png")} style={{maxWidth:"50% !important"}} alt="logo" /> </Link>
+                        <Link className="navbar-brand" to=""> <img src={require("../dist/img/logo.png")} style={{maxWidth:"50% !important"}} alt="logo" /> </Link>
                     </nav>
                     <div className="justify-content-between d-flex" style={{background: "#cacaca"}}>
                         <span>INVOICE </span>
