@@ -248,7 +248,7 @@ class Dashboard extends Component {
                               options={{
                                 title:{
                                   display:true,
-                                  text:'Total Amount',
+                                  text:'Total Amount (Rp)',
                                   fontSize:20
                                 },
                                 legend:{
