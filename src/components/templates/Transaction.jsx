@@ -252,8 +252,8 @@ class Transaction extends Component {
         // console.log(invoiceNumber)
 
         // const urlProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product"
-        const urlAddinvoice = "https://qrispayments.herokuapp.com/transaction/addInvoice?invoiceNumber="+invoiceNumber
-        // const urlAddinvoice = "http://karyabetawi.site/qr-payment/transaction/addInvoice?invoiceNumber="+invoiceNumber
+        // const urlAddinvoice = "https://qrispayments.herokuapp.com/transaction/addInvoice?invoiceNumber="+invoiceNumber
+        const urlAddinvoice = "https://bangomicroservices.site/bango-backend-dev/transaction/addInvoice?invoiceNumber="+invoiceNumber
 
         const data = {
 
