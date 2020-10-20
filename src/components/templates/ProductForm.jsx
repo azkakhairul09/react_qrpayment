@@ -15,6 +15,7 @@ class ProductForm extends Component {
             productName: "",
             productDesc: "",
             price: "",
+            classMandatory: "",
             redirect: false
         };
 
@@ -28,19 +29,20 @@ class ProductForm extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-
+        
         const userData = localStorage.getItem('userData');
         let decoded = JSON.parse(userData);
 
-        // const urlProduct = "http://localhost:8085/sangbango-microservices/payment/v1/product"
+        const urlProduct = "http://localhost:8085/product"
         // const urlProduct = "https://qrispayments.herokuapp.com/product"
-        const urlProduct = "https://bangomicroservices.site/bango-backend-dev/product"
+        // const urlProduct = "https://bangomicroservices.site/bango-backend-dev/product"
 
         const product = {
             categorize: this.state.categorize,
             productName: this.state.productName,
             productDesc: this.state.productDesc,
-            price: this.state.price
+            price: this.state.price,
+            classMandatory: this.state.classMandatory
         }
 
         axios.post(urlProduct, product, {
@@ -52,18 +54,34 @@ class ProductForm extends Component {
         })
         .then((response) => {
             let res = response.data;
-            this.setState({
-                redirect: true
-            })
-            toast.info('success', 
-            {
-              position: toast.POSITION.TOP_CENTER,
-              hideProgressBar: true,
-              className: "custom-toast",
-              autoClose: 2000,
-            })
+            console.log(response)
+
+            if (res.errorCode === "E099") {
+                this.setState({
+                    redirect: false
+                })
+                toast.info('Silakan isikan price dengan angka saja!', 
+                {
+                  position: toast.POSITION.TOP_CENTER,
+                  hideProgressBar: true,
+                  className: "warning-toast",
+                  autoClose: 2000,
+                })
+            } else {
+                this.setState({
+                    redirect: true
+                })
+                toast.info('success', 
+                {
+                  position: toast.POSITION.TOP_CENTER,
+                  hideProgressBar: true,
+                  className: "custom-toast",
+                  autoClose: 2000,
+                })
+            }
         })
         .catch((error) => {
+            console.log(error)
             if (error.response.status === 403) {
                 toast.info('access expired, please login again', 
                 {
@@ -74,6 +92,14 @@ class ProductForm extends Component {
                 })
                 localStorage.clear()
                 this.props.history.push("/login")
+            } else {
+                toast.info('failed, please try again', 
+                {
+                    position: toast.POSITION.TOP_CENTER,
+                    hideProgressBar: true,
+                    className: "custom-toast",
+                    autoClose: 2000,
+                })
             }
         });
     }
@@ -99,17 +125,17 @@ class ProductForm extends Component {
                     <section className="content-header">
                     <div className="container-fluid">
                         <div className="row">
-                        <div className="col-md-5">
+                        <div className="col-md-12">
                             {/* general form elements disabled */}
                             <div className="card card-dark">
                             <div className="card-header">
-                                <h3 className="card-title" style={{color: "#fff"}}>General Elements</h3>
+                                <h3 className="card-title" style={{color: "#fff"}}>Form Penambahan Produk</h3>
                             </div>
                             {/* /.card-header */}
                             <div className="card-body">
                                 <form onSubmit={this.onSubmit}>
                                 <div className="row">
-                                    <div className="col-sm-8">
+                                    <div className="col-sm-4">
                                     {/* text input */}
                                     <div className="form-group">
                                         <label>Categorize</label>
@@ -121,13 +147,13 @@ class ProductForm extends Component {
                                         onChange={this.onChange}
                                         value={this.state.categorize}
                                         required
-                                        placeholder="Enter ..."
+                                        placeholder="Example Categoriez of Product ..."
                                         />
                                     </div>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-sm-12">
+                                    <div className="col-sm-6">
                                     {/* text input */}
                                     <div className="form-group">
                                         <label>Product Name</label>
@@ -139,7 +165,7 @@ class ProductForm extends Component {
                                         onChange={this.onChange}
                                         value={this.state.productName}
                                         required
-                                        placeholder="Enter ..."
+                                        placeholder="Example name of Product ..."
                                         />
                                     </div>
                                     </div>
@@ -148,19 +174,20 @@ class ProductForm extends Component {
                                     <div className="col-sm-6">
                                     <div className="form-group">
                                         <label>Description</label>
-                                        <input
+                                        <textarea
                                         type="text"
                                         className="form-control"
                                         name="productDesc"
                                         id="productDesc"
                                         onChange={this.onChange}
                                         value={this.state.productDesc}
+                                        rows="3"
                                         required
-                                        placeholder="Enter ..."
+                                        placeholder="Description of Product ..."
                                         />
                                     </div>
                                     </div>
-                                    <div className="col-sm-6">
+                                    <div className="col-sm-3">
                                     <div className="form-group">
                                         <label>Price</label>
                                         <input
@@ -171,7 +198,25 @@ class ProductForm extends Component {
                                         onChange={this.onChange}
                                         value={this.state.price}
                                         required
-                                        placeholder="Enter ..."
+                                        placeholder="Numeric only ..."
+                                        />
+                                    </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-sm-6">
+                                    {/* text input */}
+                                    <div className="form-group">
+                                        <label>Class Mandatory</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="classMandatory"
+                                        id="classMandatory"
+                                        onChange={this.onChange}
+                                        value={this.state.classMandatory}
+                                        required
+                                        placeholder="Example : VII or 1"
                                         />
                                     </div>
                                     </div>

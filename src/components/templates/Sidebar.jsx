@@ -1,8 +1,33 @@
 import React, { Component } from 'react'
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import $ from "jquery";
+import { toast } from 'react-toastify';
 
 class Sidebar extends Component {
+    state = {
+        redirect: false
+    }
+    
+    logout= () => {
+        localStorage.clear()
+        toast.info('good bye', 
+            {
+              position: toast.POSITION.TOP_CENTER,
+              hideProgressBar: true,
+              className: "custom-toast",
+              autoClose: 2000,
+            })
+        this.setState({
+            redirect: true
+        })
+    }
+
+    renderRedirect = () => {
+        if (this.state.redirect) {
+          return <Redirect to='/login' />
+        }
+    }
+
     render() {
         $(document).ready(function () {
             var location = window.location.pathname;
@@ -28,7 +53,7 @@ class Sidebar extends Component {
                     {/* Sidebar Menu */}
                     <nav className="mt-2">
                         <ul
-                        className="nav nav-pills nav-sidebar flex-column mb-5"
+                        className="nav nav-pills nav-sidebar flex-column"
                         data-widget="treeview"
                         role="menu"
                         data-accordion="false"
@@ -41,6 +66,12 @@ class Sidebar extends Component {
                                 <p style={{color:"#fff"}}>Dashboard</p>
                                 </Link>
                             </li>
+                            {/* <li className="nav-item">
+                                <Link to="/payaja" className="nav-link">
+                                    <i className="fas fa-home nav-icon"></i>
+                                    <p style={{color:"#fff"}}>Homepage</p>
+                                </Link>
+                            </li> */}
 
                             <li className="nav-header">ADMINISTRATOR</li>
                             
@@ -52,10 +83,15 @@ class Sidebar extends Component {
                             </li>
                             <li className="nav-item">
                                 <Link to="transactions" className="nav-link">
-                                <i className="far fa-circle nav-icon"></i>
-                                <p style={{color:"#fff"}}>Transaction</p>
+                                    <i className="far fa-circle nav-icon"></i>
+                                    <p style={{color:"#fff"}}>Transaction</p>
                                 </Link>
                             </li>
+                        </ul>
+                        <ul>
+                            <div className= "mt-2 mb-2" style={{borderBottom:"1px solid #ffffff1f"}}>
+
+                            </div>
                         </ul>
                         <ul
                         className="nav nav-pills nav-sidebar flex-column"
@@ -63,10 +99,12 @@ class Sidebar extends Component {
                         role="menu"
                         data-accordion="false"
                         >
-                            <li className="btn btn-link" style={{textAlign: "left"}}>
-                                <Link to="/payaja" className="">
-                                    <p style={{color:"#fff"}}>Go to home page</p>
-                                </Link>
+                            {this.renderRedirect()}
+                            <li role="button" onClick={this.logout} className="nav-item" style={{textAlign: "left"}}>
+                                <div className="nav-link">
+                                    <i className="fas fa-sign-out-alt nav-icon"></i>
+                                    <p style={{color:"#fff"}}>Logout</p>
+                                </div>
                             </li>
                         </ul>
                     </nav>

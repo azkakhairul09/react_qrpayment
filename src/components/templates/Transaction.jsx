@@ -378,7 +378,7 @@ class Transaction extends Component {
                                                     {transaction.isConfirmed ? (
                                                         <div style={{color:"#212529"}}>{transaction.invoice.invoiceNumber}</div>
                                                     ):(
-                                                        <div style={{color:"#007bff", cursor:"pointer"}} onClick={() => this.confirmation(transaction.transactionId)}>{transaction.invoice.invoiceNumber}</div>
+                                                        <div style={{color:"#007bff", cursor:"pointer"}} onClick={() => { if (window.confirm('Are you sure to confirmation?')) this.confirmation(transaction.transactionId) } }>{transaction.invoice.invoiceNumber}</div>
                                                     )}</small>
                                                 </td>
                                                 <td><small>{transaction.merchantId}</small></td>

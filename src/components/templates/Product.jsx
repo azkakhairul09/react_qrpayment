@@ -189,7 +189,7 @@ class Product extends Component {
                                         {this.state.products.map((product, i) => (
                                             <tr key={i}>
                                             <td>
-                                                <div style={{color:"#007bff", cursor:"pointer"}} onClick={() => this.disactive(product.productId)}><i className="fas fa-minus-circle" style={{color: "red"}}></i></div>
+                                                <div style={{color:"#007bff", cursor:"pointer"}} onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) this.disactive(product.productId) }}><i className="fas fa-minus-circle" style={{color: "red"}}></i></div>
                                             </td>
                                             <td>{product.categorize}</td>
                                             <td>{product.productId}</td>
