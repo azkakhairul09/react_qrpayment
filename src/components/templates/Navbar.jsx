@@ -17,25 +17,25 @@ class Navbar extends Component {
         })
     }
 
-    logout= () => {
-        localStorage.clear()
-        toast.info('good bye', 
-            {
-              position: toast.POSITION.TOP_CENTER,
-              hideProgressBar: true,
-              className: "custom-toast",
-              autoClose: 2000,
-            })
-        this.setState({
-            redirect: true
-        })
-    }
+    // logout= () => {
+    //     localStorage.clear()
+    //     toast.info('good bye', 
+    //         {
+    //           position: toast.POSITION.TOP_CENTER,
+    //           hideProgressBar: true,
+    //           className: "custom-toast",
+    //           autoClose: 2000,
+    //         })
+    //     this.setState({
+    //         redirect: true
+    //     })
+    // }
 
-    renderRedirect = () => {
-        if (this.state.redirect) {
-          return <Redirect to='/login' />
-        }
-    }
+    // renderRedirect = () => {
+    //     if (this.state.redirect) {
+    //       return <Redirect to='/login' />
+    //     }
+    // }
     render() {
         return (
             <div>
@@ -70,11 +70,11 @@ class Navbar extends Component {
                             data-toggle="tooltip" 
                             data-placement="bottom" 
                             title="Logout">
-                            {this.renderRedirect()}
+                            {/* {this.renderRedirect()} */}
                             <div
                                 className="nav-link d-block"
                                 role="button"
-                                onClick={this.logout}
+                                // onClick={this.logout}
                             >
                                 {this.state.username}
                             </div>

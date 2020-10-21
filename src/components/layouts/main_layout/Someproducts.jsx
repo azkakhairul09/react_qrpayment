@@ -7,8 +7,10 @@ class Someproducts extends Component {
         loading: true,
         someproducts: [],
         redirect: false,
-        error: false
+        error: false,
     }
+
+    
 
     componentDidMount() {
         // const urlGetSomeProducts = "http://localhost:8085/sangbango-microservices/payment/v1/product/someproducts"

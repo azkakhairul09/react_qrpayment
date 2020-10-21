@@ -154,7 +154,7 @@ class Products extends Component {
               {
                 breakpoint: 480,
                 settings: {
-                  slidesToShow: 3,
+                  slidesToShow: 2,
                   slidesToScroll: 1,
                   infinite: true,
                   speed: 500,
@@ -185,12 +185,12 @@ class Products extends Component {
                                 <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
                                 <div className="special_cource_text mt-3">
                                     {this.renderRedirect()}
-                                    <div className="btn_4" onClick={() => this.detail(product.productId)}>DETAIL</div>
+                                    <div className="btn_4 smallifsmall" onClick={() => this.detail(product.productId)}>DETAIL</div>
                                     <div className="justify-content-between d-flex details mt-3" style={{color:"#888"}}>
-                                        <span>Price</span>
-                                        <span>Rp {product.price}</span>
+                                        <span className="smallifsmall">Price</span>
+                                        <span className="smallifsmall">Rp {product.price}</span>
                                     </div>
-                                    <p style={{color:"#212529"}}>{product.productName}</p>
+                                    <p className="ellipsis" style={{color:"#212529"}}>{product.productName}</p>
                                     <span style={{fontSize: "12px"}}>by: {product.createdBy}</span>
                                 </div>
                             </div>

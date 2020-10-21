@@ -164,7 +164,7 @@ class Dashboard extends Component {
                             </span>
                             <div className="info-box-content">
                               <span className="info-box-text">
-                                Total Transaction
+                                Amount
                               </span>
                               <span className="info-box-number">
                               <div className="justify-content-between d-flex">

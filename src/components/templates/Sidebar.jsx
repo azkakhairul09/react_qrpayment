@@ -100,7 +100,7 @@ class Sidebar extends Component {
                         data-accordion="false"
                         >
                             {this.renderRedirect()}
-                            <li role="button" onClick={this.logout} className="nav-item" style={{textAlign: "left"}}>
+                            <li role="button" onClick = {() => { if (window.confirm('Are you sure you wish to delete this item?')) this.logout()}} className="nav-item" style={{textAlign: "left"}}>
                                 <div className="nav-link">
                                     <i className="fas fa-sign-out-alt nav-icon"></i>
                                     <p style={{color:"#fff"}}>Logout</p>
