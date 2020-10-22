@@ -33,9 +33,9 @@ class Dashboard extends Component {
         const userData = localStorage.getItem('userData');
         let decoded = JSON.parse(userData);
 
-        const urlWeeklyTrx = "http://localhost:8085/weekly_transactions"
+        // const urlWeeklyTrx = "http://localhost:8085/weekly_transactions"
         // const urlCreateQr = "https://qrispayments.herokuapp.com/invoice?" + Qs.stringify(param)
-        // const urlWeeklyTrx = "https://bangomicroservices.site/bango-backend-dev/weekly_transactions"
+        const urlWeeklyTrx = "https://bangomicroservices.site/bango-backend-dev/weekly_transactions"
 
         let trxDate = [];
         let trxTotal = [];
