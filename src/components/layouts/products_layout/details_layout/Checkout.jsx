@@ -29,9 +29,9 @@ class Checkout extends Component {
                 const param = {
                     productId: this.props.productId
                 }
-                // const urlCreateQr = "http://localhost:8085/sangbango-microservices/payment/v1/invoice?" + Qs.stringify(param)
+                const urlCreateQr = "http://localhost:8085/invoice?" + Qs.stringify(param)
                 // const urlCreateQr = "https://qrispayments.herokuapp.com/invoice?" + Qs.stringify(param)
-                const urlCreateQr = "https://bangomicroservices.site/bango-backend-dev/invoice?" + Qs.stringify(param)
+                // const urlCreateQr = "https://bangomicroservices.site/bango-backend-dev/invoice?" + Qs.stringify(param)
         
                 const data = {}
         
@@ -41,26 +41,44 @@ class Checkout extends Component {
                     }
                 })
                 .then((response) => {
-                    let res = response.data.content
+                    console.log(response)
+                    if (response.data.errorCode === "Err301") {
+                        toast.info(response.data.errorDesc, 
+                        {
+                            position: toast.POSITION.TOP_CENTER,
+                            hideProgressBar: true,
+                            autoClose: false,
+                            className: "custom-toast"
+                        })
+                        setTimeout(
+                            function() {
+                                window.location.reload(false);
+                            },
+                            5000
+                        );
+                    } else {
+                        let res = response.data.content
 
-                    var nominal = res.invoiceNominal;
-                    var reverse = nominal.toString().split('').reverse().join(''),
-                    format = reverse.match(/\d{1,3}/g);
-                    format = format.join('.').split('').reverse().join('');
+                        var nominal = res.invoiceNominal;
+                        var reverse = nominal.toString().split('').reverse().join(''),
+                        format = reverse.match(/\d{1,3}/g);
+                        format = format.join('.').split('').reverse().join('');
 
-                    this.setState ({
-                        qrcontent: res.content,
-                        price: format,
-                        invoiceNo: res.invoiceNumber
-                    })         
-                    let str = res.content;
+                        this.setState ({
+                            qrcontent: res.content,
+                            price: format,
+                            invoiceNo: res.invoiceNumber
+                        })         
+                        let str = res.content;
 
-                    qrcode.toCanvas(document.getElementById("canvas"), str, function (error) {
-                    if (error) console.error(error);
-                    //   console.log('success!')
-                    });
+                        qrcode.toCanvas(document.getElementById("canvas"), str, function (error) {
+                        if (error) console.error(error);
+                        //   console.log('success!')
+                        });
+                    }
                 })
                 .catch((error) => {
+                    console.log(error)
                     if (error.response.status) {
                         if (error.response.status === 403) {
                             toast.info('access expired, please login again', 

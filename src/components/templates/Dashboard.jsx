@@ -33,9 +33,9 @@ class Dashboard extends Component {
         const userData = localStorage.getItem('userData');
         let decoded = JSON.parse(userData);
 
-        // const urlWeeklyTrx = "http://localhost:8085/weekly_transactions"
+        const urlWeeklyTrx = "http://localhost:8085/weekly_transactions"
         // const urlCreateQr = "https://qrispayments.herokuapp.com/invoice?" + Qs.stringify(param)
-        const urlWeeklyTrx = "https://bangomicroservices.site/bango-backend-dev/weekly_transactions"
+        // const urlWeeklyTrx = "https://bangomicroservices.site/bango-backend-dev/weekly_transactions"
 
         let trxDate = [];
         let trxTotal = [];
@@ -59,37 +59,103 @@ class Dashboard extends Component {
               dailyAmount.push(parseInt(dataObj.totalNominal));
             }
 
-            const totalTrx = dailyTrx.pop();
-            const totalAmount = dailyAmount.pop();
+            if (dailyAmount === 0) {
+              const totalAmount = 0;
+              const totalTrx = dailyTrx.pop();
 
-            this.setState({
-              totalDailyAmount: totalAmount,
-              totalDailyTrx: totalTrx,
-              transactionsChartData: {
-                labels: trxDate,
-                datasets: [
-                  {
-                    label: 'Transaction',
-                    backgroundColor: 'rgba(0,123,255,0.2)',
-                    borderColor: 'rgba(0,123,255,1)',
-                    borderWidth: 2,
-                    data: trxTotal
-                  }
-                ]
-              },
-              amountChartData: {
-                labels: trxDate,
-                datasets: [
-                  {
-                    label: 'Amount',
-                    backgroundColor: 'rgba(0,123,255,0.2)',
-                    borderColor: 'rgba(0,123,255,1)',
-                    borderWidth: 2,
-                    data: totalNominal
-                  }
-                ]
-              }
-            })
+              this.setState({
+                totalDailyAmount: totalAmount,
+                totalDailyTrx: totalTrx,
+                transactionsChartData: {
+                  labels: trxDate,
+                  datasets: [
+                    {
+                      label: 'Transaction',
+                      backgroundColor: 'rgba(0,123,255,0.2)',
+                      borderColor: 'rgba(0,123,255,1)',
+                      borderWidth: 2,
+                      data: trxTotal
+                    }
+                  ]
+                },
+                amountChartData: {
+                  labels: trxDate,
+                  datasets: [
+                    {
+                      label: 'Amount',
+                      backgroundColor: 'rgba(0,123,255,0.2)',
+                      borderColor: 'rgba(0,123,255,1)',
+                      borderWidth: 2,
+                      data: totalNominal
+                    }
+                  ]
+                }
+              })
+            } else if (dailyTrx === 0 && dailyAmount === 0) {
+              const totalTrx = 0;
+              const totalAmount = 0;
+
+              this.setState({
+                totalDailyAmount: totalAmount,
+                totalDailyTrx: totalTrx,
+                transactionsChartData: {
+                  labels: trxDate,
+                  datasets: [
+                    {
+                      label: 'Transaction',
+                      backgroundColor: 'rgba(0,123,255,0.2)',
+                      borderColor: 'rgba(0,123,255,1)',
+                      borderWidth: 2,
+                      data: trxTotal
+                    }
+                  ]
+                },
+                amountChartData: {
+                  labels: trxDate,
+                  datasets: [
+                    {
+                      label: 'Amount',
+                      backgroundColor: 'rgba(0,123,255,0.2)',
+                      borderColor: 'rgba(0,123,255,1)',
+                      borderWidth: 2,
+                      data: totalNominal
+                    }
+                  ]
+                }
+              })              
+            } else {
+              const totalTrx = dailyTrx.pop();
+              const totalAmount = dailyAmount.pop();
+
+              this.setState({
+                totalDailyAmount: totalAmount,
+                totalDailyTrx: totalTrx,
+                transactionsChartData: {
+                  labels: trxDate,
+                  datasets: [
+                    {
+                      label: 'Transaction',
+                      backgroundColor: 'rgba(0,123,255,0.2)',
+                      borderColor: 'rgba(0,123,255,1)',
+                      borderWidth: 2,
+                      data: trxTotal
+                    }
+                  ]
+                },
+                amountChartData: {
+                  labels: trxDate,
+                  datasets: [
+                    {
+                      label: 'Amount',
+                      backgroundColor: 'rgba(0,123,255,0.2)',
+                      borderColor: 'rgba(0,123,255,1)',
+                      borderWidth: 2,
+                      data: totalNominal
+                    }
+                  ]
+                }
+              })
+            }
         })
         .catch((error) => {
           console.log(error)
@@ -147,7 +213,7 @@ class Dashboard extends Component {
                                   <span> 
                                     {this.state.totalDailyAmount ? <CurrencyFormat value={this.state.totalDailyAmount} displayType={'text'} thousandSeparator={true} prefix={''} />
                                      : 
-                                    <Skeleton width={60}/>}
+                                    0}
                                   </span>
                                 </div> 
                               </span>
@@ -172,7 +238,7 @@ class Dashboard extends Component {
                                   <span> 
                                     {this.state.totalDailyTrx ? <div>{this.state.totalDailyTrx}</div>
                                      : 
-                                    <Skeleton width={60}/>}
+                                    0}
                                   </span>
                                 </div> 
                               </span>
