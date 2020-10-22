@@ -18,6 +18,16 @@ class Dashboard extends Component {
       totalDailyTrx: "",
       totalDailyAmount: ""
     }
+    var options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            min: 0
+          }    
+        }]
+      }
+    };
   }
 
     componentDidMount() {
@@ -266,6 +276,14 @@ class Dashboard extends Component {
                                   text:'Total Transaction',
                                   fontSize:20
                                 },
+                                scales: {
+                                  yAxes: [{
+                                    ticks: {
+                                      beginAtZero: true,
+                                      min: 0
+                                    }    
+                                  }]
+                                },
                                 legend:{
                                   display:false,
                                   position:'right'
@@ -286,6 +304,14 @@ class Dashboard extends Component {
                                   display:true,
                                   text:'Total Amount (Rp)',
                                   fontSize:20
+                                },
+                                scales: {
+                                  yAxes: [{
+                                    ticks: {
+                                      beginAtZero: true,
+                                      min: 0
+                                    }    
+                                  }]
                                 },
                                 legend:{
                                   display:false,

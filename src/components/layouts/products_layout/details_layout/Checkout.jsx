@@ -29,9 +29,9 @@ class Checkout extends Component {
                 const param = {
                     productId: this.props.productId
                 }
-                // const urlCreateQr = "http://localhost:8085/invoice?" + Qs.stringify(param)
+                const urlCreateQr = "http://localhost:8085/bango-backend-dev/invoice?" + Qs.stringify(param)
                 // const urlCreateQr = "https://qrispayments.herokuapp.com/invoice?" + Qs.stringify(param)
-                const urlCreateQr = "https://bangomicroservices.site/bango-backend-dev/invoice?" + Qs.stringify(param)
+                // const urlCreateQr = "https://bangomicroservices.site/bango-backend-dev/invoice?" + Qs.stringify(param)
         
                 const data = {}
         
