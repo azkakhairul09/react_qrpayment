@@ -99,17 +99,7 @@
         .special_cource_text .btn_4 {
             padding: 3.5px 10px;
         }
-        /* .special_cource_text p {
-            font-size: 12px !important;
-<<<<<<< Updated upstream
         }
-=======
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        } */
->>>>>>> Stashed changes
-    }
     
     @media only screen and (min-width: 576px) and (max-width: 767px) {
         /* line 18, E:/172 Etrain Education/172_Etrain_Education_html/sass/_common.scss */
@@ -7550,10 +7540,7 @@
     }
 
     .special_cource {
-        padding: 70px 0px 50px
-<<<<<<< Updated upstream
-    }
-=======
+        padding: 70px 0px 50px;
     }
 
     .ellipsisbig {
@@ -7562,4 +7549,3 @@
         white-space: nowrap;
         overflow: hidden;
     }
->>>>>>> Stashed changes
