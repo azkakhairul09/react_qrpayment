@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Slider from "react-slick";
 
 function SampleNextArrow(props) {
@@ -177,8 +177,41 @@ class Products extends Component {
                                 </div>
                             </div>
                         </div>
-                        <Slider {...settings}>
-                        {/* <div className="row justify-content-center"> */}
+                        <div className="row mb-5 justify-content-center">
+                        {this.state.products.map((product, i) => (
+                            <div className="col-xl-3 col-sm-6 col-lg-4 col-md-4 col-xs-12 wow slideInUp" key={i}>
+                                <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
+                                {product.productImage ? (
+                                    <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
+                                ) : (
+                                    <img src={require('../../img/loader.gif')} className="special_img" alt="loader"/>
+                                )}
+                                
+                                    <div className="special_cource_text">
+                                        {this.renderRedirect()}
+                                        <div className="btn_4 smallifsmall" onClick={() => this.detail(product.productId)}>DETAIL</div>
+                                        <h4>Rp {product.price}</h4>
+                                        {/* <div className="mt-1 mb-1" style={{borderBottom: "1px solid #000"}}></div> */}
+                                        {/* <Link to="course-details.html"><h3>{product.productName}</h3></Link> */}
+                                        <h5 className="mb-0 mt-2 ellipsis smallifsmall">{product.productName}</h5>
+                                        <div className="bor-bottom mb-1" style={{width: "1rem"}}></div>
+                                        <small>Deskripsi:</small>
+                                        <br/>
+                                        <p className="ellipsisbig">{product.productDesc}</p>
+                                        <div className="author_info mt-0">
+                                        <div className="author_img">
+                                            <div className="author_info_text">
+                                                <p>by: <Link to="#">{product.createdBy}</Link></p>
+                                                
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                        {/* <Slider {...settings}>                        
                             {this.state.products.map((product, i) => (
                             <div className="wow slideInUp p1" key={i}>
                             <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
@@ -196,8 +229,7 @@ class Products extends Component {
                             </div>
                             </div>
                             ))}
-                                        {/* </div> */}
-                        </Slider>
+                        </Slider> */}
                     </div>
                 </section>
                 {/*::blog_part end::*/}

@@ -103,7 +103,7 @@ class Someproducts extends Component {
                     
                     <div className="row mb-5 justify-content-center">
                         {this.state.someproducts.map((product, i) => (
-                            <div className="col-sm-6 col-lg-4 wow slideInUp" key={i}>
+                            <div className="col-xl-4 col-sm-4 col-lg-4 col-md-4 col-xs-12 wow slideInUp" key={i}>
                                 <div className="single_special_cource" style={{border: "1px solid #edeff2"}}>
                                 {product.productImage ? (
                                     <img src={product.productImage} className="special_img" style={{background:"#0000000d"}} alt="" />
@@ -117,11 +117,11 @@ class Someproducts extends Component {
                                         <h4>Rp {product.price}</h4>
                                         {/* <div className="mt-1 mb-1" style={{borderBottom: "1px solid #000"}}></div> */}
                                         {/* <Link to="course-details.html"><h3>{product.productName}</h3></Link> */}
-                                        <h5 className="mb-0 mt-2">{product.productName}</h5>
+                                        <h5 className="mb-0 mt-2 smallifsmall">{product.productName}</h5>
                                         <div className="bor-bottom mb-1" style={{width: "1rem"}}></div>
                                         <small>Deskripsi:</small>
                                         <br/>
-                                        <span>{product.productDesc}</span>
+                                        <p className="ellipsisbig">{product.productDesc}</p>
                                         <div className="author_info mt-0">
                                         <div className="author_img">
                                             <div className="author_info_text">

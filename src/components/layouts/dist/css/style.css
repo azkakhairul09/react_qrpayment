@@ -99,9 +99,16 @@
         .special_cource_text .btn_4 {
             padding: 3.5px 10px;
         }
-        .special_cource_text p {
+        /* .special_cource_text p {
             font-size: 12px !important;
+<<<<<<< Updated upstream
         }
+=======
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        } */
+>>>>>>> Stashed changes
     }
     
     @media only screen and (min-width: 576px) and (max-width: 767px) {
@@ -121,6 +128,15 @@
         .dt-buttons {
             text-align: center;
         }
+        .smallifsmall {
+            font-size: small;
+        }
+        .ellipsis {
+            text-overflow: ellipsis;
+            /* Required for text-overflow to do anything */
+            white-space: nowrap;
+            overflow: hidden;
+        }
     }
     /* line 33, E:/172 Etrain Education/172_Etrain_Education_html/sass/_common.scss */
     
@@ -139,6 +155,15 @@
         /* line 33, E:/172 Etrain Education/172_Etrain_Education_html/sass/_common.scss */
         .single_padding_top {
             padding-top: 70px !important;
+        }
+        .smallifsmall {
+            font-size: small;
+        }
+        .ellipsis {
+            text-overflow: ellipsis;
+            /* Required for text-overflow to do anything */
+            white-space: nowrap;
+            overflow: hidden;
         }
     }
     
@@ -7526,4 +7551,15 @@
 
     .special_cource {
         padding: 70px 0px 50px
+<<<<<<< Updated upstream
     }
+=======
+    }
+
+    .ellipsisbig {
+        text-overflow: ellipsis;
+        /* Required for text-overflow to do anything */
+        white-space: nowrap;
+        overflow: hidden;
+    }
+>>>>>>> Stashed changes
